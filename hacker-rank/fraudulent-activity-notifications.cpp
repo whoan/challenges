@@ -11,14 +11,14 @@ class FraudulenceNotifier {
   SortedExpendituresContainer sortedExpenditures;
   typename SortedExpendituresContainer::iterator middle;
   std::queue<typename SortedExpendituresContainer::iterator> sortedExpendituresIterators;
-  typename OriginContainer::iterator firstExpenditureIt;
-  typename OriginContainer::iterator lastExpenditureIt;
-  typename OriginContainer::iterator currentExpenditureIt;
+  typename OriginContainer::const_iterator firstExpenditureIt;
+  typename OriginContainer::const_iterator lastExpenditureIt;
+  typename OriginContainer::const_iterator currentExpenditureIt;
   int notifications;
 
 public:
-  FraudulenceNotifier(int trailingDays, OriginContainer& expenditure)
-    : trailingDays(trailingDays), firstExpenditureIt(std::begin(expenditure)), lastExpenditureIt(std::end(expenditure)), notifications(0)
+  FraudulenceNotifier(int trailingDays, const OriginContainer& expenditure)
+    : trailingDays(trailingDays), firstExpenditureIt(std::cbegin(expenditure)), lastExpenditureIt(std::cend(expenditure)), notifications(0)
   {
     currentExpenditureIt = std::next(firstExpenditureIt, trailingDays);
     std::for_each(firstExpenditureIt, currentExpenditureIt, [this] (const typename OriginContainer::value_type& value) {
@@ -69,13 +69,13 @@ public:
   }
 
   bool isFraudulentActivity(float median) {
-    return *currentExpenditureIt >= median*2;
+    return *currentExpenditureIt >= median;
   }
 
   int getNotifications() const { return notifications; }
 };
 
-int activityNotifications(std::vector<int> expenditure, int trailingDays) {
+int activityNotifications(const std::vector<int>& expenditure, int trailingDays) {
   FraudulenceNotifier<std::vector<int>> fraudulenceNotifier(trailingDays, expenditure);
   for (std::size_t day = trailingDays; day < expenditure.size(); ++day) {
     fraudulenceNotifier.checkFraudulentActivity();
