@@ -6,41 +6,48 @@
 #include <stack>
 #include <stdexcept>
 
+template <class T=int>
 class MyQueue {
-    typedef int type;
-    std::stack<type> pushStack;
-    std::stack<type> popStack;
+    std::stack<T> pushStack;
+    std::stack<T> popStack;
 
-    void changeStacks(std::stack<type>& origin, std::stack<type>& destination) {
-        while (origin.size()) {
-            destination.push(origin.top());
-            origin.pop();
+    void changeStacks() {
+        while (pushStack.size()) {
+            popStack.push(pushStack.top());
+            pushStack.pop();
         }
     }
 public:
     void pop() {
         if (popStack.empty()) {
-            changeStacks(pushStack, popStack);
+            changeStacks();
+            if (popStack.empty()) {
+                throw std::out_of_range("There is no element to pop");
+            }
         }
-        if (popStack.empty()) throw std::out_of_range("There is no elements to pop");
         popStack.pop();
     }
 
-    void push(type data) {
+    void push(const T& data) {
         pushStack.push(data);
     }
+    void push(T&& data) {
+        pushStack.push(std::move(data));
+    }
 
-    type front() {
+    const T& top() {
         if (popStack.empty()) {
-            changeStacks(pushStack, popStack);
+            changeStacks();
+            if (popStack.empty()) {
+                throw std::out_of_range("There are no elements in the stack");
+            }
         }
-        if (popStack.empty() && pushStack.empty()) throw std::out_of_range("There is no elements in the stack");
         return popStack.top();
     }
 };
 
 int main() {
-    MyQueue q1;
+    MyQueue<> q1;
     int q, type, x;
     std::cin >> q;
 
@@ -55,7 +62,7 @@ int main() {
                 q1.pop();
                 break;
             default:
-                std::cout << q1.front() << std::endl;
+                std::cout << q1.top() << std::endl;
                 break;
         }
     }

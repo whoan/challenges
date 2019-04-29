@@ -10,6 +10,7 @@ template <class T>
 class Quicksort {
     void quicksort(std::vector<T>& elements, int left, int right) {
         if (right <= left) return;
+        // partition place the pivot (the first element is chosen in this case) in its definitive place and returns its index
         auto index = partition(elements, left, right);
         quicksort(elements, left, index-1);
         quicksort(elements, index+1, right);
@@ -22,6 +23,7 @@ class Quicksort {
         ++left; // skip the pivot
         do {
             while (left <= right && elements[left] <= pivot) {
+                // it supposes at this stage that "left" will be its final place
                 index=left;
                 ++left;
             }
