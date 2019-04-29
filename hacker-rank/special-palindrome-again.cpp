@@ -6,10 +6,10 @@
 
 bool isSpecialPalindrome(const std::string& input) {
   auto middle = std::next(std::begin(input), input.size()/2);
-  auto value = input.front();
-  return std::mismatch(std::begin(input), middle, std::rbegin(input), [value] (char left, char right) {
-    return left == right && left == value;
-  }).first == middle;
+  // providing the comparator is faster than not doing it
+  return std::equal(std::begin(input), middle, std::rbegin(input), [] (char left, char right) {
+    return left == right;
+  });
 }
 
 long substrCount(int, std::string fullString) {
