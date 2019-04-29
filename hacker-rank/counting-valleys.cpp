@@ -1,3 +1,7 @@
+/*
+ * https://www.hackerrank.com/challenges/counting-valleys/
+ */
+
 #include <bits/stdc++.h>
 
 int countingValleys(int, std::string steps) {
