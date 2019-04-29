@@ -4,13 +4,10 @@
 
 #include <bits/stdc++.h>
 
-/************/
-/* SOLUTION */
-/************/
-
 int sockMerchant(int, std::vector<int> socks) {
   std::unordered_set<int> oddSocks;
   for (auto sock : socks) {
+    // structured binding is a c++17 feature
     auto [iterator, insertionSucceed] = oddSocks.insert(sock);
     if (!insertionSucceed) {
       oddSocks.erase(sock);
