@@ -25,7 +25,7 @@ bool is_balanced(const std::string& expression) {
             return false;
         }
     }
-    return !stack.size();
+    return stack.empty();
 }
 
 int main() {
