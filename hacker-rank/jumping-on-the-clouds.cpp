@@ -1,3 +1,7 @@
+/*
+ * https://www.hackerrank.com/challenges/jumping-on-the-clouds/
+ */
+
 #include <bits/stdc++.h>
 
 int jumpingOnClouds(std::vector<int> clouds) {

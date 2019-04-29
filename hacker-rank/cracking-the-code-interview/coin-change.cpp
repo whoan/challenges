@@ -1,3 +1,7 @@
+/*
+ * https://www.hackerrank.com/challenges/ctci-coin-change
+ */
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
