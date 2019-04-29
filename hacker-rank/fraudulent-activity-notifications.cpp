@@ -29,9 +29,9 @@ public:
 
   float getMedian() {
     if (sortedExpenditures.size() % 2) {
-      return *middle;
+      return (*middle) * 2;
     }
-    return (*middle + *std::prev(middle)) / 2.0;
+    return *middle + *std::prev(middle);
   }
 
   void forwardDay() {
