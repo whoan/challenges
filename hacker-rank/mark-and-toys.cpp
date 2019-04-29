@@ -1,17 +1,15 @@
 /*
- * https://www.hackerrank.com/challenges/mark-and-toys
+ * https://www.hackerrank.com/challenges/mark-and-toys/
  */
 
 #include <bits/stdc++.h>
 
 int maximumToys(std::vector<int> prices, int amountToSpend) {
-   // considers worst case where there are amountToSpend toys at price 1
-  auto lastPossibleItemIt = std::min(std::end(prices), std::next(std::begin(prices), amountToSpend));
-  std::partial_sort(std::begin(prices), lastPossibleItemIt, std::end(prices));
-  return std::count_if(std::begin(prices), lastPossibleItemIt, [&amountToSpend] (int price) {
+  std::sort(std::begin(prices), std::end(prices));
+  return std::distance(std::begin(prices), std::find_if(std::begin(prices), std::end(prices), [&amountToSpend] (int price) {
     amountToSpend -= price;
-    return amountToSpend > 0;
-  });
+    return amountToSpend < 0;
+  }));
 }
 
 /*************************************************/
