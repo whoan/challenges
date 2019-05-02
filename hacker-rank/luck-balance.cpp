@@ -26,16 +26,14 @@ int luckBalance(int maxAllowedToLose, std::vector<std::vector<int>> contests) {
   accumulatedLuck = std::accumulate(
     std::rbegin(importantContests),
     std::next(std::rbegin(importantContests), maxAllowedToLose),
-    accumulatedLuck,
-    [] (int accumulated, int luck) { return accumulated + luck; }
+    accumulatedLuck
   );
 
   // substract luck
   return std::accumulate(
     std::next(std::rbegin(importantContests), maxAllowedToLose),
     std::rend(importantContests),
-    accumulatedLuck,
-    [] (int accumulated, int luck) { return accumulated - luck; }
+    accumulatedLuck, std::minus<>()
   );
 }
 
