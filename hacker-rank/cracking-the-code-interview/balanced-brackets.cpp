@@ -7,13 +7,17 @@
 #include <iostream>
 #include <unordered_map>
 
-bool is_balanced(const std::string& expression) {
+bool isBalanced(const std::string& expression) {
     static const std::unordered_map<char, char> brackets {
         {'{', '}'},
         {'[', ']'},
         {'(', ')'},
     };
-    if (expression.size() % 2) return false;
+
+    if (expression.size() % 2) {
+        return false;
+    }
+
     std::stack<char> stack;
     for (const auto& bracket : expression) {
         // check if it is an open bracket
@@ -34,7 +38,7 @@ int main() {
     for (int i = 0; i < t; ++i) {
         std::string expression;
         std::cin >> expression;
-        std::cout << (is_balanced(expression) ? "YES\n" : "NO\n");
+        std::cout << (isBalanced(expression) ? "YES\n" : "NO\n");
     }
     return 0;
 }
