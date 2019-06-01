@@ -4,10 +4,6 @@
 
 #include <bits/stdc++.h>
 
-/*************************************************/
-/* HERE STARTS THE PREDEFINED CODE IN HACKERRANK */
-/*************************************************/
-
 using namespace std;
 
 class Node {
@@ -66,7 +62,6 @@ class Solution {
         // this function is the one I defined above
         return checkHeight(root);
     }
-
     /* End of my code */
 
 }; //End of Solution
