@@ -9,7 +9,8 @@ std::size_t itToReverseIndex(Iterator rbegin, Iterator current, std::size_t coll
     return collectionSize - std::distance(rbegin, current) - 1;
 }
 
-std::vector<int> climbingLeaderboard(const std::vector<int>& globalScores, std::vector<int> aliceScores) {
+std::vector<int> climbingLeaderboard(std::vector<int> globalScores, const std::vector<int>& aliceScores) {
+    globalScores.erase(std::unique(std::begin(globalScores), std::end(globalScores)), std::end(globalScores));
     auto globalScoreIt = std::begin(globalScores);
     auto aliceScoreIt = std::rbegin(aliceScores);
     std::vector<int> aliceRanks(aliceScores.size());
@@ -29,15 +30,12 @@ std::vector<int> climbingLeaderboard(const std::vector<int>& globalScores, std::
         }
 
         if (globalScore >= aliceScore) {
-            while (globalScoreIt != std::end(globalScores) && *globalScoreIt == globalScore) {
-                std::advance(globalScoreIt, 1);
-            }
+            std::advance(globalScoreIt, 1);
             ++rank;
         }
     }
 
     while (aliceScoreIt != std::rend(aliceScores)) {
-        int aliceScore = *aliceScoreIt;
         auto aliceRankIndex = itToReverseIndex(std::rbegin(aliceScores), aliceScoreIt, aliceScores.size());
         aliceRanks[aliceRankIndex] = rank;
         std::advance(aliceScoreIt, 1);
