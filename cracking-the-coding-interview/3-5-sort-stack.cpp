@@ -4,10 +4,18 @@
  * (such as an array). The stack support the following operations: push, pop, peek, and isEmpty.
  */
 
-#include <bits/stdc++.h>
+#include <iostream>
+#include <stack>
+#include <array>
 
 /*
   Hint: Having two sorted stacks, you always have the minumum at the top of one of the stacks.
+
+  Complexity:
+
+  - Push: O(N)
+  - Peek: O(1)
+  - Pop:  O(1)
 
   This is what happens when we push a value (lest's say 3) to a pair of sorted stacks:
 
@@ -46,11 +54,11 @@ class SortedStack {
     return value <= stack.top();
   }
 
-  StackId getStackWithLessElements() const {
+  StackId getIdStackWithLessElements() const {
     return stacks.at(StackId::ONE).size() < stacks.at(StackId::ANOTHER).size() ? StackId::ONE : StackId::ANOTHER;
   }
 
-  StackId getStackWithMinElement() const {
+  StackId getIdStackWithMinElement() const {
     if (isEmpty()) {
       throw std::runtime_error("Stack is empty");
     }
@@ -68,9 +76,9 @@ class SortedStack {
   }
 
   void sortStacksAndPush(const T& value) {
-    StackId stackWithLessElementsId = getStackWithLessElements();
-    auto stackWithLessElements = stacks.at(stackWithLessElementsId);
-    auto theOtherStack = stacks.at(getOtherStackId(stackWithLessElementsId));
+    StackId idStackWithLessElements = getIdStackWithLessElements();
+    auto stackWithLessElements = stacks.at(idStackWithLessElements);
+    auto theOtherStack = stacks.at(getOtherStackId(idStackWithLessElements));
 
     // move (temporarily) elements from our target stack to the other stack. step 2 in diagram
     std::size_t elementsMoved = 0;
@@ -109,13 +117,13 @@ public:
 
   // O(1)
   T& peek() const {
-    StackId stackId = getStackWithMinElement();
+    StackId stackId = getIdStackWithMinElement();
     return stacks.at(stackId).top();
   }
 
   // O(1)
   T pop() {
-    StackId stackId = getStackWithMinElement();
+    StackId stackId = getIdStackWithMinElement();
     T min = stacks.at(stackId).top();
     stacks.at(stackId).pop();
     return min;
