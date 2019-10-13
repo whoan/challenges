@@ -81,7 +81,7 @@ long candies(int, std::vector<int> ranks) {
         ++totalCandies;
     }
 
-    for (auto currentTrendIt = std::begin(trends); currentTrendIt != std::end(trends); ++currentTrendIt) {
+    for (auto currentTrendIt = std::begin(trends); currentTrendIt != std::end(trends); std::advance(currentTrendIt, 1)) {
         totalCandies += sumSequence(std::abs(*currentTrendIt));
         if (isThereLanding(currentTrendIt, std::end(trends))) {
             ++totalCandies;
