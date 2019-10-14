@@ -17,24 +17,19 @@ bool check(It begin, It end, const std::string& target, std::size_t indexTarget)
     if (indexTarget >= target.size()) {
         return std::all_of(begin, end, [] (char character) { return isLowerCase(character); });
     }
-    auto targetChar = target.at(indexTarget);
-    while (begin != end && isDifferentLowCharacter(*begin, targetChar)) {
-        if (std::distance(begin, end) < long(target.size() - indexTarget)) {
-            return false;
-        }
-        ++begin;
-    }
-    if (begin == end || !sourceCharCanBecomeTargetChar(*begin, targetChar)) {
+    if (begin == end || std::distance(begin, end) < long(target.size() - indexTarget)) {
         return false;
     }
 
     static std::unordered_map<std::string, bool> memoize;
-    auto subsolution1 = std::string(std::next(begin), end) + "-" + target.substr(indexTarget + 1);
-    if (!memoize.count(subsolution1)) {
-        memoize[subsolution1] = check(std::next(begin), end, target, indexTarget + 1);
-    }
-    if (memoize[subsolution1]) {
-        return memoize[subsolution1];
+    if (sourceCharCanBecomeTargetChar(*begin, target[indexTarget])) {
+        auto subsolution1 = std::string(std::next(begin), end) + "-" + target.substr(indexTarget + 1);
+        if (!memoize.count(subsolution1)) {
+            memoize[subsolution1] = check(std::next(begin), end, target, indexTarget + 1);
+        }
+        if (memoize[subsolution1]) {
+            return memoize[subsolution1];
+        }
     }
     if (!isLowerCase(*begin)) {
         return false;
