@@ -40,7 +40,7 @@ bool isThereHighPeak(It currentTrendIt, It end) {
 }
 
 template <typename It>
-bool isThereDownPeak(It currentTrendIt, It end) {
+bool isThereLowPeak(It currentTrendIt, It end) {
     auto nextTrendIt = std::next(currentTrendIt);
     return *currentTrendIt < 0 && nextTrendIt != end && *nextTrendIt > 0;
 }
@@ -87,7 +87,7 @@ long candies(int, std::vector<int> ranks) {
             ++totalCandies;
         } else if (isThereHighPeak(currentTrendIt, std::end(ranks))) {
             totalCandies -= std::min(std::abs(*currentTrendIt), std::abs(*std::next(currentTrendIt)));
-        } else if (isThereDownPeak(currentTrendIt, std::end(ranks))) {
+        } else if (isThereLowPeak(currentTrendIt, std::end(ranks))) {
             --totalCandies;
         }
     }
