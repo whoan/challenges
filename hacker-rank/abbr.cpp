@@ -1,5 +1,5 @@
 /*
- * https://www.hackerrank.com/challenges/max-array-sum
+ * https://www.hackerrank.com/challenges/abbr
  */
 
 #include <bits/stdc++.h>

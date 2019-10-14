@@ -1,3 +1,7 @@
+/*
+ * https://www.hackerrank.com/challenges/abbr
+ */
+
 #include <bits/stdc++.h>
 
 bool isLowerCase(char character) {
