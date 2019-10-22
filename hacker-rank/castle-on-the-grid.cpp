@@ -101,12 +101,12 @@ Graph createGraph(const std::vector<std::string>& grid, int startX, int startY, 
 }
 
 template <typename GraphAdjacencyList, typename VertexType, typename Tree = std::unordered_map<VertexType, VertexType>>
-class BreadFirstTree {
+class BreadthFirstTree {
   VertexType source;
   Tree tree;
 
 public:
-  BreadFirstTree(GraphAdjacencyList graph, VertexType source) : source(std::move(source)) {
+  BreadthFirstTree(GraphAdjacencyList graph, VertexType source) : source(std::move(source)) {
     std::queue<VertexType> queue;
     queue.push(this->source);
 
@@ -133,13 +133,13 @@ public:
 
 // helper for compilers not supporting C++17 to avoid providing template parameters (C++14 is needed)
 template <typename GraphAdjacencyList, typename VertexType>
-auto makeBreadFirstTree(GraphAdjacencyList graph, VertexType source) {
-  return BreadFirstTree<GraphAdjacencyList, VertexType>(std::move(graph), std::move(source));
+auto makeBreadthFirstTree(GraphAdjacencyList graph, VertexType source) {
+  return BreadthFirstTree<GraphAdjacencyList, VertexType>(std::move(graph), std::move(source));
 }
 
 int minimumMoves(std::vector<std::string> grid, int startX, int startY, int goalX, int goalY) {
-  auto breadFirstTree = makeBreadFirstTree(createGraph(grid, startX, startY, goalX, goalY), createVertex(startX, startY));
-  return breadFirstTree.getDistance(createVertex(goalX, goalY));
+  auto breadthFirstTree = makeBreadthFirstTree(createGraph(grid, startX, startY, goalX, goalY), createVertex(startX, startY));
+  return breadthFirstTree.getDistance(createVertex(goalX, goalY));
 }
 
 /*************************************************/
