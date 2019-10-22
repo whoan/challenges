@@ -8,15 +8,7 @@ using Vertex = int;
 using Edges = std::vector<Vertex>;
 using Graph = std::map<Vertex, Edges>;
 
-void printGraph(const Graph& graph) {
-  for (const auto& pair: graph) {
-    std::cout << pair.first;
-    for (const auto& vertex : pair.second) {
-       std::cout << "-> " << vertex;
-    }
-    std::cout << std::endl;
-  }
-}
+snip("https://raw.githubusercontent.com/whoan/snippets/master/c%2B%2B/graph.hpp")
 
 int main() {
   std::size_t testCases = 0;
