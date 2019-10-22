@@ -7,10 +7,6 @@
 
 #include <bits/stdc++.h>
 
-#define snip(x)
-// https://github.com/whoan/snip
-snip("https://raw.githubusercontent.com/whoan/snippets/master/c%2B%2B/print.hpp")
-
 /*
 00 01 02
 
@@ -100,42 +96,10 @@ Graph createGraph(const std::vector<std::string>& grid, int startX, int startY, 
   return graph;
 }
 
-template <typename GraphAdjacencyList, typename VertexType, typename Tree = std::unordered_map<VertexType, VertexType>>
-class BreadthFirstTree {
-  VertexType source;
-  Tree tree;
-
-public:
-  BreadthFirstTree(GraphAdjacencyList graph, VertexType source) : source(std::move(source)) {
-    std::queue<VertexType> queue;
-    queue.push(this->source);
-
-    while (queue.size()) {
-      auto vertex = queue.front();
-      queue.pop();
-      for (const auto& adjacentVertex : graph.at(vertex)) {
-        if (!tree.count(adjacentVertex) && adjacentVertex != this->source) {
-          queue.push(adjacentVertex);
-          tree[adjacentVertex] = vertex;
-        }
-      }
-    }
-  }
-
-  int getDistance(const VertexType& target) {
-    int count = 0;
-    for (auto current = target; current != source; current = tree.at(current)) {
-      ++count;
-    }
-    return count;
-  }
-};
-
-// helper for compilers not supporting C++17 to avoid providing template parameters (C++14 is needed)
-template <typename GraphAdjacencyList, typename VertexType>
-auto makeBreadthFirstTree(GraphAdjacencyList graph, VertexType source) {
-  return BreadthFirstTree<GraphAdjacencyList, VertexType>(std::move(graph), std::move(source));
-}
+#define snip(x)
+// https://github.com/whoan/snip
+// add template class BreadthFirstTree
+snip("https://raw.githubusercontent.com/whoan/snippets/master/c%2B%2B/bfs.hpp")
 
 int minimumMoves(std::vector<std::string> grid, int startX, int startY, int goalX, int goalY) {
   auto breadthFirstTree = makeBreadthFirstTree(createGraph(grid, startX, startY, goalX, goalY), createVertex(startX, startY));
