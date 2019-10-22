@@ -100,41 +100,46 @@ Graph createGraph(const std::vector<std::string>& grid, int startX, int startY, 
   return graph;
 }
 
-template <typename GraphAdjacencyList, typename VertexType, typename BreadFirstTree = std::unordered_map<VertexType, VertexType>>
-BreadFirstTree createBreadFirstTree(const GraphAdjacencyList& graph, const VertexType& origin) {
-  std::queue<VertexType> queue;
-  queue.push(origin);
-  BreadFirstTree tree;
+template <typename GraphAdjacencyList, typename VertexType, typename Tree = std::unordered_map<VertexType, VertexType>>
+class BreadFirstTree {
+  VertexType source;
+  Tree tree;
 
-  while (queue.size()) {
-    auto vertex = queue.front();
-    queue.pop();
-    for (const auto& adjacentVertex : graph.at(vertex)) {
-      if (!tree.count(adjacentVertex) && adjacentVertex != origin) {
-        queue.push(adjacentVertex);
-        tree[adjacentVertex] = vertex;
+public:
+  BreadFirstTree(GraphAdjacencyList graph, VertexType source) : source(std::move(source)) {
+    std::queue<VertexType> queue;
+    queue.push(this->source);
+
+    while (queue.size()) {
+      auto vertex = queue.front();
+      queue.pop();
+      for (const auto& adjacentVertex : graph.at(vertex)) {
+        if (!tree.count(adjacentVertex) && adjacentVertex != this->source) {
+          queue.push(adjacentVertex);
+          tree[adjacentVertex] = vertex;
+        }
       }
     }
   }
 
-  return tree;
-}
-
-template <typename VertexType, typename BreadFirstTree = std::unordered_map<VertexType, VertexType>>
-int getDistanceInBreadFirstTree(const BreadFirstTree& bfTree, const VertexType& origin, const VertexType& target) {
-  int count = 0;
-  for (auto current = target; current != origin; current = bfTree.at(current)) {
-    ++count;
+  int getDistance(const VertexType& target) {
+    int count = 0;
+    for (auto current = target; current != source; current = tree.at(current)) {
+      ++count;
+    }
+    return count;
   }
-  return count;
+};
+
+// helper for compilers not supporting C++17 to avoid providing template parameters (C++14 is needed)
+template <typename GraphAdjacencyList, typename VertexType>
+auto makeBreadFirstTree(GraphAdjacencyList graph, VertexType source) {
+  return BreadFirstTree<GraphAdjacencyList, VertexType>(std::move(graph), std::move(source));
 }
 
 int minimumMoves(std::vector<std::string> grid, int startX, int startY, int goalX, int goalY) {
-  Graph graph = createGraph(grid, startX, startY, goalX, goalY);
-  auto startVertex = createVertex(startX, startY);
-  auto goalVertex = createVertex(goalX, goalY);
-  auto breadFirstTree = createBreadFirstTree(graph, startVertex);
-  return getDistanceInBreadFirstTree(breadFirstTree, startVertex, goalVertex);
+  auto breadFirstTree = makeBreadFirstTree(createGraph(grid, startX, startY, goalX, goalY), createVertex(startX, startY));
+  return breadFirstTree.getDistance(createVertex(goalX, goalY));
 }
 
 /*************************************************/
