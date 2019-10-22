@@ -20,7 +20,6 @@ snip("https://raw.githubusercontent.com/whoan/snippets/master/c%2B%2B/print.hpp"
 
 using Vertex = std::string;
 using Graph = std::unordered_map<Vertex, std::vector<Vertex>>;
-using BreadFirstTree = std::unordered_map<Vertex, Vertex>;
 
 std::string createVertex(int x, int y) {
   return std::to_string(x) + "," + std::to_string(y);
@@ -101,8 +100,9 @@ Graph createGraph(const std::vector<std::string>& grid, int startX, int startY, 
   return graph;
 }
 
-BreadFirstTree createBreadFirstTree(const Graph& graph, const Vertex& origin) {
-  std::queue<Vertex> queue;
+template <typename GraphAdjacencyList, typename VertexType, typename BreadFirstTree = std::unordered_map<VertexType, VertexType>>
+BreadFirstTree createBreadFirstTree(const GraphAdjacencyList& graph, const VertexType& origin) {
+  std::queue<VertexType> queue;
   queue.push(origin);
   BreadFirstTree tree;
 
@@ -110,7 +110,7 @@ BreadFirstTree createBreadFirstTree(const Graph& graph, const Vertex& origin) {
     auto vertex = queue.front();
     queue.pop();
     for (const auto& adjacentVertex : graph.at(vertex)) {
-      if (!tree.count(adjacentVertex)) {
+      if (!tree.count(adjacentVertex) && adjacentVertex != origin) {
         queue.push(adjacentVertex);
         tree[adjacentVertex] = vertex;
       }
@@ -120,7 +120,8 @@ BreadFirstTree createBreadFirstTree(const Graph& graph, const Vertex& origin) {
   return tree;
 }
 
-int getDistance(const BreadFirstTree& bfTree, const Vertex& origin, const Vertex& target) {
+template <typename VertexType, typename BreadFirstTree = std::unordered_map<VertexType, VertexType>>
+int getDistanceInBreadFirstTree(const BreadFirstTree& bfTree, const VertexType& origin, const VertexType& target) {
   int count = 0;
   for (auto current = target; current != origin; current = bfTree.at(current)) {
     ++count;
@@ -133,7 +134,7 @@ int minimumMoves(std::vector<std::string> grid, int startX, int startY, int goal
   auto startVertex = createVertex(startX, startY);
   auto goalVertex = createVertex(goalX, goalY);
   auto breadFirstTree = createBreadFirstTree(graph, startVertex);
-  return getDistance(breadFirstTree, startVertex, goalVertex);
+  return getDistanceInBreadFirstTree(breadFirstTree, startVertex, goalVertex);
 }
 
 /*************************************************/
