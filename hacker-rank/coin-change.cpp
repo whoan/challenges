@@ -4,8 +4,10 @@
 
 #include <bits/stdc++.h>
 
+// TODO: use vector instead of unordered_map for cache friendlyness
+
 template <typename It>
-long getWays(int target, It beginCoins, It endCoins) {
+long makeChange(int target, It beginCoins, It endCoins) {
     long total = 0;
     static std::unordered_map<std::string, long> memoize;
     for (; beginCoins != endCoins && *beginCoins <= target; ++beginCoins) {
@@ -16,16 +18,16 @@ long getWays(int target, It beginCoins, It endCoins) {
         int newTarget = target - *beginCoins;
         auto key = std::to_string(newTarget) + "-" + std::to_string(*beginCoins);
         if (!memoize.count(key)) {
-            memoize[key] = getWays(newTarget, beginCoins, endCoins);
+            memoize[key] = makeChange(newTarget, beginCoins, endCoins);
         }
         total += memoize[key];
     }
     return total;
 }
 
-long getWays(int target, std::vector<long> coins) {
+long makeChange(int target, std::vector<long> coins) {
     std::sort(std::begin(coins), std::end(coins));
-    return getWays(target, std::begin(coins), std::end(coins));
+    return makeChange(target, std::begin(coins), std::end(coins));
 }
 
 /*************************************************/
@@ -66,7 +68,7 @@ int main()
 
     // Print the number of ways of making change for 'n' units using coins having the values given by 'c'
 
-    long ways = getWays(n, c);
+    long ways = makeChange(n, c);
 
     fout << ways << "\n";
 
