@@ -4,6 +4,9 @@
 
 #include <bits/stdc++.h>
 
+// see https://github.com/whoan/tst
+const char* tst = "tst:abbr";
+
 bool isSameCharacterInsensitive(char a, char capitalB) {
     return a == capitalB || a == capitalB - ('A'-'a');
 }

@@ -2,6 +2,9 @@
  * https://www.hackerrank.com/challenges/pairs
  */
 
+// see https://github.com/whoan/tst
+const char* tst = "tst:pairs";
+
 #include <bits/stdc++.h>
 
 // Solution using an unordered set

@@ -4,6 +4,9 @@
 
 #include <bits/stdc++.h>
 
+// see https://github.com/whoan/tst
+const char* tst = "tst:abbr";
+
 bool isLowerCase(char character) {
     return std::tolower(character) == character;
 }
