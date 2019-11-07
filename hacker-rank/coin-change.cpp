@@ -4,6 +4,8 @@
 
 #include <bits/stdc++.h>
 
+const char* tst = "tst:coin-change";
+
 // TODO: use vector instead of unordered_map for cache friendlyness
 
 template <typename It>
