@@ -96,13 +96,12 @@ Graph createGraph(const std::vector<std::string>& grid, int startX, int startY, 
   return graph;
 }
 
-#define snip(x)
-// https://github.com/whoan/snip
+// see https://github.com/whoan/snip
 // add template class BreadthFirstTree
-snip("https://raw.githubusercontent.com/whoan/snippets/master/c%2B%2B/bfs.hpp")
+// snip("bfs.hpp")
 
 int minimumMoves(std::vector<std::string> grid, int startX, int startY, int goalX, int goalY) {
-  auto breadthFirstTree = makeBreadthFirstTree(createGraph(grid, startX, startY, goalX, goalY), createVertex(startX, startY));
+  auto breadthFirstTree = snip::makeBreadthFirstTree(createGraph(grid, startX, startY, goalX, goalY), createVertex(startX, startY));
   return breadthFirstTree.getDistance(createVertex(goalX, goalY));
 }
 

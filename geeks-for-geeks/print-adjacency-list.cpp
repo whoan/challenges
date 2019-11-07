@@ -8,7 +8,8 @@ using Vertex = int;
 using Edges = std::vector<Vertex>;
 using Graph = std::map<Vertex, Edges>;
 
-snip("https://raw.githubusercontent.com/whoan/snippets/master/c%2B%2B/graph.hpp")
+// see https://github.com/whoan/snip
+// snip("graph.hpp")
 
 int main() {
   std::size_t testCases = 0;
@@ -24,7 +25,7 @@ int main() {
       graph[u].push_back(v);
       graph[v].push_back(u);
     }
-    printGraph(graph);
+    snip::printGraph(graph);
 
   }
   return 0;

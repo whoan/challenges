@@ -1,6 +1,13 @@
 #include <limits>
 #include <algorithm>
 
+// see https://github.com/whoan/snip
+// snip("std-input.hpp")
+// snip("print.hpp")
+
+// see https://github.com/whoan/tst
+const char* tst = "tst:min-coin-change";
+
 auto max = std::numeric_limits<long>::max();
 
 // brute-force
@@ -20,12 +27,6 @@ long minCoinChange(long target, const Coins& coins) {
 }
 
 // END OF ALGORITHM
-
-// see https://github.com/whoan/tst
-const char* tst = "tst:min-coin-change";
-
-// see https://github.com/whoan/snip
-//snip("https://raw.githubusercontent.com/whoan/snippets/master/c%2B%2B/std-input.hpp")
 
 int main() {
   std::size_t target, numberOfCoins;
