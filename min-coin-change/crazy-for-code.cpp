@@ -41,4 +41,4 @@ int minCoinsChange(const Coins& coins, int target) {
 }
 
 // see https://github.com/whoan/snip
-// snip("https://raw.githubusercontent.com/whoan/challenges/min-coin-change/min-coin-change/base.cpp")
+// snip("https://raw.githubusercontent.com/whoan/challenges/master/min-coin-change/crazy-for-code.cpp")
