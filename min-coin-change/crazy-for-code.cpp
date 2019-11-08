@@ -7,7 +7,7 @@ template <typename Coins>
 int minCoins(const Coins& a, int N, int S) {
     /* N: Length of the array */
 
-    int *min = (int *)malloc(sizeof(int)*(S+1));  // whoan syas: ignore this the leak please
+    int *min = (int *)malloc(sizeof(int)*(S+1));  // whoan says: ignore this leak please
     int i,j;
     for(i=0;i<=S;i++)
         min[i]= INT_MAX; // start with extremly large value
