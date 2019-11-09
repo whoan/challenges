@@ -4,6 +4,9 @@
 
 #include <bits/stdc++.h>
 
+// see https://github.com/whoan/tst
+const char* tst = "tst:binary-search-tree-lowest-common-ancestor";
+
 using namespace std;
 
 class Node {
