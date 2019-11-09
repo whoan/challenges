@@ -3,14 +3,13 @@
 // DP: bottom-up
 template <typename Coins>
 long minCoinChangeBottomUp(const Coins& coins, int target) {
-  constexpr auto MAX = std::numeric_limits<int>::max();
-  std::vector<int> cache(target + 1, MAX);
+  std::vector<int> cache(target + 1, std::numeric_limits<int>::max() - 1); // -1 to avoid integer overflow when I add 1 below
   cache[0] = 0;
 
   for (int partialTarget = 1; partialTarget <= target; ++partialTarget) {
     for (int coin : coins) {
       int remaining = partialTarget - coin;
-      if (remaining >= 0 && cache[remaining] != MAX) {
+      if (remaining >= 0) {
         cache[partialTarget] = std::min(cache[partialTarget], cache[remaining] + 1);
       }
     }
