@@ -39,6 +39,7 @@ else
   exec "$@"
 fi
 
+# shellcheck disable=SC1090
 source ~/.bashrc
 
 snip g++ -Wall --std=c++17 "$@" &&
