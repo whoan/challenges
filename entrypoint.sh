@@ -16,15 +16,30 @@ __download_code() {
   fi
 }
 
+__is_url() {
+  local param
+  param=${1:?Please provide a parameter (url|command) to check}
+  [[ $param =~ ^http ]]
+}
+
+__is_file() {
+  local param
+  param=${1:?Please provide a parameter (url|command) to check}
+  [ -f "$param" ]
+}
+
 first_param=${1:?Please provide a parameter (url|command)}
 
-if ! [[ $first_param =~ ^(http|/) ]]; then
+if __is_url "$first_param"; then
+  __download_code
+  set - code.cpp
+elif __is_file "$first_param"; then
+  :
+else
   exec "$@"
 fi
 
-__download_code
-
 source ~/.bashrc
 
-snip g++ -Wall --std=c++17 code.cpp &&
+snip g++ -Wall --std=c++17 "$@" &&
   tst ./a.out
