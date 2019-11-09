@@ -23,8 +23,6 @@ dtest() {
     elif [ -f "$param" ]; then
       param=${param#~}
       tst_volumes+=(-v"$PWD/$param":/app/"$param")
-    elif ! [[ $param =~ ^http ]]; then
-      echo "Parameters can only be urls or files" >&2
     fi
   done
   docker run -ti --rm --volume=tst-cache:/root/.cache "${tst_volumes[@]}" whoan/tst:latest "$@"
