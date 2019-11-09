@@ -8,21 +8,23 @@ __curl_http_error() {
   [[ $(cut -f1 -d: "$content_file") == "$status_code" ]]
 }
 
-code_url=${1:?Please provide code url to compile and test}
+__download_code() {
+  curl --silent "$first_param" -o code.cpp
+  if __curl_http_error code.cpp 404; then
+    echo "Code could not be downloaded" >&2
+    exit 1
+  fi
+}
 
-if [ "$code_url" == bash ]; then
-  bash
-  exit
+first_param=${1:?Please provide a parameter (url|command)}
+
+if ! [[ $first_param =~ ^(http|/) ]]; then
+  exec "$@"
 fi
+
+__download_code
 
 source ~/.bashrc
-
-curl --silent "$code_url" -o code.cpp
-
-if __curl_http_error code.cpp 404; then
-  echo "Code could not be downloaded" >&2
-  exit 1
-fi
 
 snip g++ -Wall --std=c++17 code.cpp &&
   tst ./a.out
