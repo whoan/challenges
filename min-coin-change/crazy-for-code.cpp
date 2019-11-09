@@ -1,5 +1,7 @@
 // https://www.crazyforcode.com/coin-problem/
 
+// Disclaimer: this code is not mine
+
 #include <bits/stdc++.h>
 
 //int minCoins( int a[], int N, int S ){
