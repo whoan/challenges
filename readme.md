@@ -37,7 +37,7 @@ Now, you can test your local files or any file from internet like this:
 $ dtest min-coin-change/bottom-up.cpp
 Downloading snippet: https://raw.githubusercontent.com/whoan/challenges/master/min-coin-change/base.cpp
 Running: g++ -Wall --std=c++17 /tmp/tmp.gACmjC.cpp
-Running test 'min-coin-change' in executable: ./a.out
+Running test 'min-coin-change'
 /root/.cache/tst/min-coin-change/input-00.txt -> SUCCEDED
 /root/.cache/tst/min-coin-change/input-01.txt -> SUCCEDED
 /root/.cache/tst/min-coin-change/input-02.txt -> SUCCEDED
@@ -53,7 +53,7 @@ Running test 'min-coin-change' in executable: ./a.out
 ```
 $ dtest min-coin-change/crazy-for-code.cpp
 Running: g++ -Wall --std=c++17 /tmp/tmp.MmcBjI.cpp
-Running test 'min-coin-change' in executable: ./a.out
+Running test 'min-coin-change'
 /root/.cache/tst/min-coin-change/input-00.txt -> SUCCEDED
 /root/.cache/tst/min-coin-change/input-01.txt -> SUCCEDED
 /root/.cache/tst/min-coin-change/input-02.txt -> SUCCEDED
@@ -83,7 +83,7 @@ Or directly with a web url:
 ```
 $ dtest https://raw.githubusercontent.com/whoan/challenges/master/min-coin-change/bottom-up.cpp
 Running: g++ -Wall --std=c++17 /tmp/tmp.JnGmkn.cpp
-Running test 'min-coin-change' in executable: ./a.out
+Running test 'min-coin-change'
 /root/.cache/tst/min-coin-change/input-00.txt -> SUCCEDED
 /root/.cache/tst/min-coin-change/input-01.txt -> SUCCEDED
 /root/.cache/tst/min-coin-change/input-02.txt -> SUCCEDED
