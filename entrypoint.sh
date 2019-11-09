@@ -28,7 +28,7 @@ __is_file() {
   [ -f "$param" ]
 }
 
-first_param=${1:?Please provide a parameter (url|command)}
+first_param=${1:?Please provide a parameter (url|file|command)}
 
 if __is_url "$first_param"; then
   __download_code
