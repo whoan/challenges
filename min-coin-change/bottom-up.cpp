@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 
-// DP: bottom-uṕ
+// DP: bottom-up
 template <typename Coins>
 long minCoinChangeBottomUp(const Coins& coins, int target) {
   constexpr auto MAX = std::numeric_limits<int>::max();
@@ -10,7 +10,7 @@ long minCoinChangeBottomUp(const Coins& coins, int target) {
   for (int partialTarget = 1; partialTarget <= target; ++partialTarget) {
     for (int coin : coins) {
       int remaining = partialTarget - coin;
-      if (remaining == 0 || (remaining > 0 && cache[remaining] != MAX)) {
+      if (remaining >= 0 && cache[remaining] != MAX) {
         cache[partialTarget] = std::min(cache[partialTarget], cache[remaining] + 1);
       }
     }
