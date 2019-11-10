@@ -39,12 +39,12 @@ public:
 int main() {
     std::size_t numberOfElements;
     std::cin >> numberOfElements;
-    auto bfs = snip::createBinarySearchTreeFromInput(numberOfElements);
+    auto bst = snip::createBinarySearchTreeFromInput(numberOfElements);
 
     Solution solution;   
     int v1, v2;
     std::cin >> v1 >> v2;
-    TreeNode *ans = solution.lca(bfs.getRoot(), v1, v2);
+    TreeNode *ans = solution.lca(bst.getRoot(), v1, v2);
     
     std::cout << ans->data;
 
