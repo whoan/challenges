@@ -13,18 +13,25 @@
 int main() {
   std::size_t numberOfElements;
   std::cin >> numberOfElements;
-  auto bfs = snip::createBinarySearchTreeFromInput(numberOfElements);
+  auto binarySearchTree = snip::createBinarySearchTreeFromInput(numberOfElements);
+  auto root = binarySearchTree.getRoot();
+  std::cerr << "is a BST: " << snip::BST::isValid(root) << std::endl;
 
   std::cerr << "pre order: ";
-  snip::DFS::preOrder(bfs.getRoot());
+  snip::DFS::preOrder(root);
   std::cerr << std::endl;
 
   std::cerr << "in order: ";
-  snip::DFS::inOrder(bfs.getRoot());
+  snip::DFS::inOrder(root);
   std::cerr << std::endl;
 
   std::cerr << "post order: ";
-  snip::DFS::postOrder(bfs.getRoot());
+  snip::DFS::postOrder(root);
   std::cerr << std::endl;
+
+  std::cerr << "reverse in order: ";
+  snip::DFS::inOrderReverse(root);
+  std::cerr << std::endl;
+
   return 0;
 }
