@@ -4,13 +4,13 @@ class MinStack {
     std::stack<int> stack;
     std::stack<int> minStack;
 
-public:
     void checkStack() {
         if (stack.empty()) {
             throw std::runtime_error("No elements in stack");
         }
     }
-    
+
+public:
     void push(int x) {
         stack.push(x);
         if (minStack.empty()) {
