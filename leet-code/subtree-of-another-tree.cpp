@@ -20,7 +20,7 @@ public:
 
   bool isSubtree(TreeNode* s, TreeNode* t) {
     return areEqual(s, t)
-      || (s->left && isSubtree(s->left, t))
+      || (s->left  && isSubtree(s->left, t))
       || (s->right && isSubtree(s->right, t));
   }
 };
