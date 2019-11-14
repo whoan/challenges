@@ -16,18 +16,13 @@ class Solution {
 
   template <typename Grid>
   void visit(Grid& grid, long row, long column) {
-    grid[row][column] = '*';
-  }
-
-  template <typename Grid>
-  bool wasVisited(const Grid& grid, long row, long column) const {
-    return grid[row][column] == '*';
+    grid[row][column] = '0'; // convert land to water to flag the land was visited
   }
 
   // dfs
   template <typename Grid>
   bool discover(Grid& grid, long row, long column) {
-    if (isWater(grid, row, column) || wasVisited(grid, row, column)) {
+    if (isWater(grid, row, column)) {
       return false;
     }
     // info: here I suppose the original grid is not used after numIslands call
