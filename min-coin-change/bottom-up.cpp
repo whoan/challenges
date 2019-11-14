@@ -14,7 +14,7 @@ long minCoinChangeBottomUp(const Coins& coins, int target) {
       }
     }
   }
-  return cache[target];
+  return cache[target] > target ? -1 : cache[target];
 }
 
 // FROM HERE, STUFF NOT RELATED TO THE ALGORITHM
