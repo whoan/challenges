@@ -29,9 +29,36 @@ class Solution {
         return false;
     }
 
+    bool bottomUp(const std::string& original, std::vector<std::string> dictionary) {
+        // optimization
+        std::sort(std::begin(dictionary), std::end(dictionary));
+        std::vector<bool> cache(original.size()+1, false);
+        cache[0] = true;
+        // optimization: start from the size of the smaller word in the dictionary
+        for (std::size_t end(dictionary.front().size()); end <= original.size(); ++end) {
+            for (const auto& word : dictionary) {
+                // optimization: if a word is greater than current end, next word will also be
+                if (end < word.size()) {
+                    break;
+                }
+                auto partial = std::string_view(original).substr(0, end);
+                auto prefix = partial.substr(0, partial.size()-word.size());
+                cache[end] = cache[prefix.size()] && partial.substr(prefix.size()) == word;
+                if (cache[end]) {
+                    break;
+                }
+            }
+        }
+        return cache[original.size()];
+    }
+
 public:
     bool wordBreak(string s, const vector<string>& wordDict) {
         return topDown(s, wordDict);
+    }
+
+    bool wordBreakBottomUp(string s, const vector<string>& wordDict) {
+        return bottomUp(s, wordDict);
     }
 };
 
