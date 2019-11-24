@@ -36,12 +36,9 @@ class Solution {
         cache[0] = true;
         // optimization: start from the size of the smaller word in the dictionary
         for (std::size_t end(dictionary.front().size()); end <= original.size(); ++end) {
-            for (const auto& word : dictionary) {
-                // optimization: if a word is greater than current end, next word will also be
-                if (end < word.size()) {
-                    break;
-                }
-                auto partial = std::string_view(original).substr(0, end);
+            for (std::size_t wordIndex(0); wordIndex < dictionary.size() && end < dictionary[wordIndex].size(); ++wordIndex) {
+                auto partial = std::string_view(original).substr(0, end);  // partial is -> prefix + (non)matching_word
+                auto word = dictionary[wordIndex];
                 auto prefix = partial.substr(0, partial.size()-word.size());
                 cache[end] = cache[prefix.size()] && partial.substr(prefix.size()) == word;
                 if (cache[end]) {
