@@ -3,7 +3,7 @@
 using namespace std;
 
 class Solution {
-    std::unordered_set<std::string_view> cache; // cache to hold already checked prefixes (false values)
+    std::unordered_set<std::string_view> memoization; // cache to hold already checked prefixes (false values)
 
     bool startWith(std::string_view remaining, std::string_view prefix) {
         return remaining.size() >= prefix.size() &&
@@ -11,7 +11,7 @@ class Solution {
     }
 
     template <typename Dictionary>
-    bool check(std::string_view remaining, const Dictionary& dictionary) {
+    bool topDown(std::string_view remaining, const Dictionary& dictionary) {
         if (remaining.empty()) {
             return true;
         }
@@ -19,12 +19,11 @@ class Solution {
             if (!startWith(remaining, word)) {
                 continue;
             }
-            std::string_view substring = remaining.substr(word.size());
-            if (!cache.count(substring)) {
-                if (check(substring, dictionary)) {
+            if (auto substring = remaining.substr(word.size()); !memoization.count(substring)) {
+                if (topDown(substring, dictionary)) {
                     return true;
                 }
-                cache.insert(substring);
+                memoization.insert(substring);
             }
         }
         return false;
@@ -32,7 +31,7 @@ class Solution {
 
 public:
     bool wordBreak(string s, const vector<string>& wordDict) {
-        return check(s, wordDict);
+        return topDown(s, wordDict);
     }
 };
 
