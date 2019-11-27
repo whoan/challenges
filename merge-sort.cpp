@@ -52,7 +52,7 @@ inline Collection<T> mergeSort(Collection<T> collection) {
 }
 
 // see https://github.com/whoan/snip
-// snip("~/projects/snippets/cpp/print.hpp")
+// snip("print.hpp")
 
 int main() {
     snip::printLoopSpaces(mergeSort({5}));
