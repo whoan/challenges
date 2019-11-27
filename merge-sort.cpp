@@ -10,19 +10,21 @@ class MergeSort {
             return;
         }
 
+        // DIVIDE
         // call recursively basically to track indices in the stack (frames).
         // the indices will be useful for the merge call to start mergign the smallest possibe ranges
         std::size_t middle = left + (right-left)/2;
         sort(left, middle);
         sort(middle, right);
 
-        // do the actual work.
-        // at this point, left-middle and middle-right are always sorted (starting from 1 element each)
+        // CONQUER
+        // at this point, [left, middle) and [middle, right) are already sorted
         merge(left, middle, right);
     }
 
     void merge(std::size_t left, std::size_t middle, std::size_t right) {
         Collection buffer;
+        // merge two sorted ranges: https://en.cppreference.com/w/cpp/algorithm/merge
         std::merge(
             // first sorted half
             std::next(std::begin(collection), left),
