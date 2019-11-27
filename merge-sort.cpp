@@ -23,22 +23,16 @@ class MergeSort {
 
     void merge(std::size_t left, std::size_t middle, std::size_t right) {
         Collection buffer;
-        std::size_t i=left, j=middle;
-        while (i < middle && j < right) {
-            if (collection[i] < collection[j]) {
-                buffer.insert(std::end(buffer), collection[i++]);
-            } else {
-                buffer.insert(std::end(buffer), collection[j++]);
-            }
-        }
-
-        while (i < middle) {
-            buffer.insert(std::end(buffer), collection[i++]);
-        }
-        while (j < right) {
-            buffer.insert(std::end(buffer), collection[j++]);
-        }
-
+        std::merge(
+            // first sorted half
+            std::next(std::begin(collection), left),
+            std::next(std::begin(collection), middle),
+            // second sorted half
+            std::next(std::begin(collection), middle),
+            std::next(std::begin(collection), right),
+            // full sorted buffer
+            std::inserter(buffer, std::end(buffer))
+        );
         std::copy(std::begin(buffer), std::end(buffer), std::next(std::begin(collection), left));
     }
 
