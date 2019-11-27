@@ -51,10 +51,16 @@ inline Collection<T> mergeSort(Collection<T> collection) {
     return collection;
 }
 
+// see https://github.com/whoan/snip
+// snip("~/projects/snippets/cpp/print.hpp")
+
 int main() {
-    for (auto item : mergeSort({4, 8, 1, 3, 2, 56, 3, 4, 7, 12, 4, 543, 7, 96, 73, 2, 3, 6, 8, 99, 2})) {
-        std::cerr << item << " ";
-    }
-    std::cerr << std::endl;
+    snip::printLoopSpaces(mergeSort({5}));
+    snip::printLoopSpaces(mergeSort({-2}));
+    snip::printLoopSpaces(mergeSort({5, 2}));
+    snip::printLoopSpaces(mergeSort({5, 2, 3}));
+    snip::printLoopSpaces(mergeSort({5, 2, 1}));
+    snip::printLoopSpaces(mergeSort({5, 2, 1, 9}));
+    snip::printLoopSpaces(mergeSort({4, 8, 1, 3, 2, 56, 3, 4, 7, 12, 4, 543, 7, 96, 73, 2, 3, 6, 8, 99, 2}));
     return 0;
 }
