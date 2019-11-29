@@ -21,12 +21,8 @@ class QuickSort {
     template <typename It>
     It partition(It begin, It end) {
         auto pivot = *std::prev(end);
-        auto middle = std::partition(begin, end, [&pivot] (const auto& value) {
-            return value <  pivot;
-        });
-        std::partition(middle, end, [&pivot] (const auto& value) {
-            return value <= pivot;
-        });
+        auto middle = std::partition(begin, end, std::bind(std::less<>(), std::placeholders::_1, pivot));
+        std::partition(middle, end, std::bind(std::less_equal<>(), std::placeholders::_1, pivot));
         return middle;
     }
 
