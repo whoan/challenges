@@ -27,6 +27,7 @@ private:
 
     template <typename It>
     It partition(It begin, It end) {
+        // TODO: paritin according to partition scheme, instead of just selecting pivot differently
         auto pivot = getPivot(begin, end);
         auto middle = std::partition(begin, end, std::bind(std::less<>(), std::placeholders::_1, pivot));
         std::partition(middle, end, std::bind(std::less_equal<>(), std::placeholders::_1, pivot));
