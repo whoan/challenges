@@ -22,6 +22,7 @@ class MergeSort {
         merge(left, middle, right);
     }
 
+    // see https://en.cppreference.com/w/cpp/algorithm/inplace_merge for a better solution
     void merge(std::size_t left, std::size_t middle, std::size_t right) {
         Collection buffer;
         // merge two sorted ranges: https://en.cppreference.com/w/cpp/algorithm/merge
