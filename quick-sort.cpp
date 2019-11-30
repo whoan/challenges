@@ -6,7 +6,7 @@ template <typename Collection>
 class QuickSort {
 public:
     enum PartitionScheme {
-        Lomuto, Hoare, Standard
+        Lomuto, Hoare, Default
     };
 
 private:
@@ -35,7 +35,7 @@ private:
             case Hoare:
                 return partitionHoare(begin, end);
             default:
-                return partitionStandard(begin, end);
+                return partitionDefault(begin, end);
         }
     }
 
@@ -70,7 +70,7 @@ private:
     }
 
     template <typename It>
-    It partitionStandard(It begin, It end) {
+    It partitionDefault(It begin, It end) {
         auto pivot = getPivot(begin, end);
         auto middle = std::partition(begin, end, std::bind(std::less<>(), std::placeholders::_1, pivot));
         std::partition(middle, end, std::bind(std::less_equal<>(), std::placeholders::_1, pivot));
@@ -81,28 +81,28 @@ private:
     auto getPivot(It begin, It end) const {
         switch (partitionScheme) {
             case Lomuto:
-                return getLomutoPivot(begin, end);
+                return getPivotLomuto(begin, end);
             case Hoare:
-                return getHoarePivot(begin, end);
+                return getPivotHoare(begin, end);
             default:
-                return getDefaultPivot(begin, end);
+                return getPivotDefault(begin, end);
         }
     }
 
     template <typename It>
-    auto getLomutoPivot(It, It end) const {
+    auto getPivotLomuto(It, It end) const {
         // Lomuto's algorithm does not require to choose pivot in this way, but I think this is the most common approach
         return *std::prev(end);
     }
 
     template <typename It>
-    auto getHoarePivot(It begin, It end) const {
+    auto getPivotHoare(It begin, It end) const {
         // Hoare's algorithm does not require to choose pivot in this way, but I think this is the most common approach
         return *std::next(begin, std::distance(begin, end) / 2);
     }
 
     template <typename It>
-    auto getDefaultPivot(It begin, It end) const {
+    auto getPivotDefault(It begin, It end) const {
         // after Sedgewick recommendation
         auto middle = std::next(begin, std::distance(begin, end) / 2);
         std::array<typename Collection::value_type, 3> candidates = {*begin, *middle, *std::prev(end)};
