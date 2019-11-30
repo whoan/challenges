@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 
+// https://en.wikipedia.org/wiki/Quicksort
+
 #snip "print.hpp"
 
 template <typename Collection>
@@ -66,6 +68,7 @@ private:
             }
             std::swap(*begin, *end);
         }
+        // this iterator does not guarantee to "point" to the pivot, we process it again (see conquer step)
         return begin;
     }
 
