@@ -15,14 +15,16 @@ private:
 
     template <typename It>
     void sort(It begin, It end) {
-        if (begin == end) {
+        // expensive and requires random access iterators:
+        // it will remain like this to allow differet partition schemes (educational purposes)
+        if (std::distance(begin, end) <= 1) {
             return;
         }
         // DIVIDE
         auto middle = partition(begin, end);
         // CONQUER
         sort(begin, middle);
-        sort(std::next(middle), end);
+        sort(partitionScheme == PartitionScheme::Hoare ? middle : std::next(middle), end);
     }
 
     template <typename It>
@@ -52,8 +54,18 @@ private:
     }
 
     template <typename It>
-    It partitionHoare(It begin, It) {
-        // TODO
+    It partitionHoare(It begin, It end) {
+        // LegacyBidirectionalIterator is needed here
+        auto pivot = getPivot(begin, end);
+        std::advance(begin, -1);
+        while (true) {
+            for (std::advance(begin, 1); *begin < pivot; std::advance(begin, 1)) {}
+            for (std::advance(end, -1); *end > pivot; std::advance(end, -1)) {}
+            if (std::distance(begin, end) <= 0) {
+                break;
+            }
+            std::swap(*begin, *end);
+        }
         return begin;
     }
 
@@ -130,6 +142,14 @@ int main() {
     snip::printLoopSpaces(quickSort({5, 2}));
     snip::printLoopSpaces(quickSort({5, 2}, QuickSort<std::vector<int>>::PartitionScheme::Hoare));
     snip::printLoopSpaces(quickSort(std::list<int>({5, 2})));
+
+    snip::printLoopSpaces(quickSort({2, 2}));
+    snip::printLoopSpaces(quickSort({2, 2}, QuickSort<std::vector<int>>::PartitionScheme::Hoare));
+    snip::printLoopSpaces(quickSort(std::list<int>({2, 2})));
+
+    snip::printLoopSpaces(quickSort({3, 3, 3}));
+    snip::printLoopSpaces(quickSort({3, 3, 3}, QuickSort<std::vector<int>>::PartitionScheme::Hoare));
+    snip::printLoopSpaces(quickSort(std::list<int>({3, 3, 3})));
 
     snip::printLoopSpaces(quickSort({3, 1, 2}));
     snip::printLoopSpaces(quickSort({3, 1, 2}, QuickSort<std::vector<int>>::PartitionScheme::Hoare));
