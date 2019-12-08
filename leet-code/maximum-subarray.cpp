@@ -11,7 +11,7 @@ public:
         int max = nums.at(0);
         int currentSum = max;
         for (std::size_t i(1); i < nums.size(); ++i) {
-            if (int currentNumber = nums[i]; currentSum + currentNumber < currentNumber) {
+            if (int currentNumber = nums[i]; currentSum < 0) {
                 currentSum = currentNumber;
             } else {
                 currentSum += currentNumber;
