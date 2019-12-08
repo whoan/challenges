@@ -19,7 +19,7 @@ class Solution {
             ++right;
         }
 
-        // get largets palindrom
+        // get largest palindrom
         auto current = s.substr(left, right-left+1);
         std::string nextCandidate;
         if (right < s.size() - equal) {
