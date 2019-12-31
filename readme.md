@@ -22,7 +22,7 @@ dtest() {
       tst_volumes+=(-v"$param":"$param")
     elif [ -f "$param" ]; then
       param=${param#~}
-      tst_volumes+=(-v"$PWD/$param":/app/"$param")
+      tst_volumes+=(-v"$PWD/$param:/app/$param")
     fi
   done
   docker run -ti --rm --volume=tst-cache:/root/.cache "${tst_volumes[@]}" whoan/tst:latest "$@"
