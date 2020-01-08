@@ -10,7 +10,7 @@ class Solution {
 
     template<typename It>
     int twoSumMinDifference(It current, It end, int target) {
-        int closest = target - sum(current, 2);
+        int closest = std::numeric_limits<int>::max();
         while (closest && current != end) {
             int remaining = target - *current++;
             auto closestToRemainder = std::upper_bound(current, end, remaining);
@@ -32,7 +32,7 @@ class Solution {
 public:
     int threeSumClosest(vector<int>& nums, int target) {
         std::sort(nums.begin(), nums.end());
-        int closest = target - sum(nums.begin(), 3);
+        int closest = std::numeric_limits<int>::max();
         for (auto it = nums.begin(), end = nums.end(); closest && std::next(it, 2) != end;) {
             int subTarget = target - *it++;
             int closestCandidate = twoSumMinDifference(it, end, subTarget);
