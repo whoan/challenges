@@ -1,4 +1,4 @@
-// https://leetcode.com/problems/implement-strstr/submissions/
+// https://leetcode.com/problems/implement-strstr/
 
 #include <bits/stdc++.h>
 
