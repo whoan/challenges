@@ -4,7 +4,8 @@
 #include <unordered_map>
 #include <vector>
 
-class Solution {
+// don't remember why I wanted to do this
+class Solution_ {
 public:
     std::vector<int> twoSum(std::vector<int>& nums, int target) {
         std::unordered_map<int, int> map;
@@ -21,6 +22,19 @@ public:
     }
 };
 
+class Solution {
+public:
+    std::vector<int> twoSum(std::vector<int>& nums, int target) {
+        std::unordered_map<int, int> map;
+        for (std::size_t i(0); i < nums.size(); ++i) {
+            if (map.count(target-nums[i])) {
+                return std::vector<int>({map[target-nums[i]], int(i)});
+            }
+            map[num] = i;
+        }
+        throw std::runtime_error("Solution not found");
+    }
+};
 
 int main() {
   std::vector<int> input{3, 2, 4};

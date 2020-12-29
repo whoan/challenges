@@ -6,6 +6,8 @@
 3- iterate nums again and find the flag. return its index
 */
 
+// INFO! This has a gret solution with XOR: see #3 https://leetcode.com/problems/missing-number/solution/
+
 class SolutionEnlargingVector {
 public:
     int missingNumber(vector<int>& nums) {
