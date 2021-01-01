@@ -41,3 +41,49 @@ private:
         return false;
     }
 };
+
+class OptimizedSolution {
+public:
+    int romanToInt(string s) {
+        fillVector();
+        string_view roman = s;
+        int integer = 0;
+        for (; not roman.empty(); roman.remove_prefix(1)) {
+            if (isSubstraction(roman)) {
+                integer += romanToInteger[roman[1]-'A'] - romanToInteger[roman[0]-'A'];
+                roman.remove_prefix(1);
+            } else {
+                integer += romanToInteger[roman[0]-'A'];
+            }
+        }
+        return integer;
+    }
+
+private:
+    bool isSubstraction(string_view roman) {
+        if (roman.size() < 2) {
+            return false;
+        }
+        switch (roman[0]) {
+            case 'I':
+                return roman[1] == 'V' || roman[1] == 'X';
+            case 'X':
+                return roman[1] == 'L' || roman[1] == 'C';
+            case 'C':
+                return roman[1] == 'D' || roman[1] == 'M';
+        }
+        return false;
+    }
+
+    void fillVector() {
+        romanToInteger['I'-'A'] = 1;
+        romanToInteger['V'-'A'] = 5;
+        romanToInteger['X'-'A'] = 10;
+        romanToInteger['L'-'A'] = 50;
+        romanToInteger['C'-'A'] = 100;
+        romanToInteger['D'-'A'] = 500;
+        romanToInteger['M'-'A'] = 1000;
+    }
+
+    vector<int> romanToInteger('X'-'A'+1);
+};
