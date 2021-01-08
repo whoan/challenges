@@ -1,5 +1,7 @@
 // https://leetcode.com/problems/roman-to-integer/
 
+// I like this solution which substracts: https://leetcode.com/problems/roman-to-integer/discuss/6811/My-easy-to-understand-C%2B%2B-solutions
+
 class Solution {
 public:
     int romanToInt(string s) {
