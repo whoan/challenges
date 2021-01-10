@@ -32,6 +32,9 @@ private:
         }
         cerr << endl;
 
+        // here the backtrack behavior is given by the fact that cur is modified (a character is appended),
+        // and when the function returns we use cur without the appended character (the "original" string)
+        // which in some way, is like undoing what we did in the backtrack cal where we modified cur
         if (open < max) {
             backtrack(cur+"(", open+1, close);
             cerr << "back to " << cur << " - remove (" << endl;
