@@ -4,6 +4,8 @@
 This should definitely be solved with backtracking
 */
 
+// Better solution: https://leetcode.com/problems/permutations/discuss/1032700/C%2B%2B-Recursive-Backtracking-Solution
+
 class Solution {
 public:
     vector<vector<int>> permute(vector<int>& nums) {
