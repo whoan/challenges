@@ -4,8 +4,8 @@
 #include <iostream>
 
 // see https://github.com/whoan/snip
-// snip("binary-search-tree.hpp")
-// snip("dfs.hpp")
+// snip("cpp/binary-search-tree.hpp")
+// snip("cpp/dfs.hpp")
 
 // test it using any input from https://github.com/whoan/datasets/blob/master/binary-search-tree-lowest-common-ancestor
 // example: curl -s https://raw.githubusercontent.com/whoan/datasets/master/binary-search-tree-lowest-common-ancestor/input-03.txt | ./a.out

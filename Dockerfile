@@ -22,7 +22,7 @@ RUN \
   mkdir -p ~/.config/snip/ && \
   echo 'source /app/snip.sh' >> ~/.bashrc && \
   echo -e 'snip() {\n __snip "$@"\n}' >> ~/.bashrc && \
-  echo 'base_url=https://raw.githubusercontent.com/whoan/snippets/master/cpp/' > ~/.config/snip/settings.ini
+  echo 'base_url=https://raw.githubusercontent.com/whoan/snippets/master/' > ~/.config/snip/settings.ini
 
 ADD https://raw.githubusercontent.com/whoan/tst/master/tst.sh ./tst.sh
 RUN \

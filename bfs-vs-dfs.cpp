@@ -47,7 +47,7 @@ void dfs(Node root) {
 }
 
 // see https://github.com/whoan/snip
-// snip("binary-search-tree.hpp")
+// snip("cpp/binary-search-tree.hpp")
 
 /*
 6

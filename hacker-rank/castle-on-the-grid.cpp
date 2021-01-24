@@ -98,7 +98,7 @@ Graph createGraph(const std::vector<std::string>& grid, int startX, int startY, 
 
 // see https://github.com/whoan/snip
 // add template class BreadthFirstTree
-// snip("bfs.hpp")
+// snip("cpp/bfs.hpp")
 
 int minimumMoves(std::vector<std::string> grid, int startX, int startY, int goalX, int goalY) {
   auto breadthFirstTree = snip::makeBreadthFirstTree(createGraph(grid, startX, startY, goalX, goalY), createVertex(startX, startY));

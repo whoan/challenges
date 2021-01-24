@@ -9,7 +9,7 @@ using Edges = std::vector<Vertex>;
 using Graph = std::map<Vertex, Edges>;
 
 // see https://github.com/whoan/snip
-// snip("graph.hpp")
+// snip("cpp/graph.hpp")
 
 int main() {
   std::size_t testCases = 0;

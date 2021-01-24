@@ -41,7 +41,7 @@ bool oneAway(std::string string1, std::string string2) {
 const char* tst = "tst:one-away";
 
 // see https://github.com/whoan/snip
-// snip("std-input.hpp")
+// snip("cpp/std-input.hpp")
 
 int main() {
   std::cout << oneAway(snip::takeFromStdInput<std::string>(), snip::takeFromStdInput<std::string>()) << std::endl;

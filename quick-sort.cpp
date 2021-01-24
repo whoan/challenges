@@ -2,8 +2,6 @@
 
 // https://en.wikipedia.org/wiki/Quicksort
 
-#snip "print.hpp"
-
 template <typename Collection>
 class QuickSort {
 public:
@@ -131,7 +129,7 @@ inline Collection<T> quickSort(
 }
 
 // see https://github.com/whoan/snip
-// snip("print.hpp")
+// snip("cpp/print.hpp")
 
 int main() {
     snip::printLoopSpaces(quickSort({5}));

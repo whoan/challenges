@@ -8,7 +8,7 @@
 const char* tst = "tst:binary-search-tree-lowest-common-ancestor";
 
 // see https://github.com/whoan/snip
-// snip("binary-search-tree.hpp")
+// snip("cpp/binary-search-tree.hpp")
 
 using snip::TreeNode;
 
