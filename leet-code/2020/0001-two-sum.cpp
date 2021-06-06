@@ -27,6 +27,7 @@ public:
     std::vector<int> twoSum(std::vector<int>& nums, int target) {
         std::unordered_map<int, int> map;
         for (std::size_t i(0); i < nums.size(); ++i) {
+            auto num = nums[i];
             if (map.count(target-nums[i])) {
                 return std::vector<int>({map[target-nums[i]], int(i)});
             }
