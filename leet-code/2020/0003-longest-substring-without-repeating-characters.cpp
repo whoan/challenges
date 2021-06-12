@@ -1,5 +1,7 @@
 // 03-longest-substring-without-repeating-characters: https://leetcode.com/problems/longest-substring-without-repeating-characters/
 
+// Terrible solutions!
+
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
