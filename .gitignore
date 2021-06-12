@@ -1,3 +1,7 @@
+**/rust/*
+!**/rust/*.rs
+
 a.out
 trash/
 *-WIP-*
+*.png
