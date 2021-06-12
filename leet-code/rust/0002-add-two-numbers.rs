@@ -47,3 +47,47 @@ impl Solution {
         Some(result)
     }
 }
+
+type OptionalNode = Option<Box<ListNode>>;
+
+impl LergerButClearerSolution {
+    pub fn add_two_numbers(l1: OptionalNode, l2: OptionalNode) -> OptionalNode {
+        Self::add_two(l1, l2, 0)
+    }
+
+    fn add_two(l1: OptionalNode, l2: OptionalNode, remaining: i32) -> OptionalNode {
+        // base case
+        if l1.is_none() && l2.is_none() && remaining == 0 {
+            return None;
+        }
+
+        if let (Some(mut some), option) = Self::reorder(l1, l2) {
+            some.val += Self::get_val(&option) + remaining;
+            some.next = Self::add_two(some.next, Self::get_next(option), some.val/10);
+            some.val %= 10;
+            return Some(some)
+        }
+        return Some(Box::new(ListNode::new(remaining)));
+    }
+
+    fn reorder(l1: OptionalNode, l2: OptionalNode) -> (OptionalNode, OptionalNode) {
+        if let Some(node) = &l1 {
+            return (l1, l2)
+        }
+        return (l2, l1)
+    }
+
+    fn get_next(list: OptionalNode) -> OptionalNode {
+        match list {
+            Some(node) => node.next,
+            None => None
+        }
+    }
+
+    fn get_val(list: &OptionalNode) -> i32 {
+        match list {
+            Some(node) => node.val,
+            None => 0
+        }
+    }
+}
