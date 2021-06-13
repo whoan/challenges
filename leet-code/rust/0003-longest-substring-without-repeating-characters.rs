@@ -2,6 +2,7 @@
 
 impl Solution {
     pub fn length_of_longest_substring(s: String) -> i32 {
+        assert!(s.is_ascii());
         let mut seen: [Option<usize>; 128] = [None; 128]; // assume ascii
         let mut start: usize = 0;
         let mut max: i32 = 0;
