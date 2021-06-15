@@ -17,7 +17,7 @@
 //   }
 // }
 
-impl Solution {
+impl MessySolution {
     pub fn add_two_numbers(l1: Option<Box<ListNode>>, l2: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
         Solution::add_two(l1, l2, 0)
     }
@@ -50,7 +50,7 @@ impl Solution {
 
 type OptionalNode = Option<Box<ListNode>>;
 
-impl LergerButClearerSolution {
+impl Solution {
     pub fn add_two_numbers(l1: OptionalNode, l2: OptionalNode) -> OptionalNode {
         Self::add_two(l1, l2, 0)
     }
@@ -62,8 +62,8 @@ impl LergerButClearerSolution {
         }
 
         if let (Some(mut some), option) = Self::reorder(l1, l2) {
-            some.val += Self::get_val(&option) + remaining;
-            some.next = Self::add_two(some.next, Self::get_next(option), some.val/10);
+            some.val += option.as_ref().map_or(0, |n| n.val) + remaining;
+            some.next = Self::add_two(some.next, option.map_or(None, |n| n.next), some.val/10);
             some.val %= 10;
             return Some(some)
         }
@@ -71,23 +71,9 @@ impl LergerButClearerSolution {
     }
 
     fn reorder(l1: OptionalNode, l2: OptionalNode) -> (OptionalNode, OptionalNode) {
-        if let Some(node) = &l1 {
+        if l1.is_some() {
             return (l1, l2)
         }
         return (l2, l1)
-    }
-
-    fn get_next(list: OptionalNode) -> OptionalNode {
-        match list {
-            Some(node) => node.next,
-            None => None
-        }
-    }
-
-    fn get_val(list: &OptionalNode) -> i32 {
-        match list {
-            Some(node) => node.val,
-            None => 0
-        }
     }
 }
