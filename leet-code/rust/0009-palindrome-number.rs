@@ -1,6 +1,25 @@
 // https://leetcode.com/problems/palindrome-number/
 
+// based on https://leetcode.com/problems/palindrome-number/discuss/5127/9-line-accepted-Java-code-without-the-need-of-handling-overflow
 impl Solution {
+    pub fn is_palindrome(x: i32) -> bool {
+        if x < 0  || (x != 0 && x % 10 == 0) {
+            return false;
+        }
+
+        // eg: 12321 -> x will have 12, reversed will have 123 (0 -> 1 -> 12 > 123)
+        let (mut x, mut reversed) = (x, 0);
+        while x > reversed {
+            reversed *= 10;
+            reversed += x % 10;
+            x /= 10;
+        }
+        x == reversed || x == reversed/10
+    }
+}
+
+// somehow, it seems to run faster than the solution above in LeetCode
+impl IntricateSolution {
     pub fn is_palindrome(x: i32) -> bool {
         if x < 0 {
             return false;
