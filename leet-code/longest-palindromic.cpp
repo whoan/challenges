@@ -8,7 +8,7 @@ class Solution {
     std::string longestPalindromic(const std::string& s, std::size_t middle) {
         auto left = middle, right = middle;
 
-        // take all contiguous equal elements form the middle
+        // take all contiguous equal elements from the middle
         while (left > 0 and s[left-1] == s[left]) --left;
         while (right < s.size()-1 and s[right+1] == s[right]) ++right;
         std::size_t equal = right - left + 1;

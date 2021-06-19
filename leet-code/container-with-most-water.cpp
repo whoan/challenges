@@ -16,7 +16,6 @@ public:
             } else {
                 ++i;
             }
-
         }
         return max;
     }
