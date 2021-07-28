@@ -9,10 +9,7 @@ impl Solution {
 
         // max allowed is == max_most_significant + max_remaining -> (-2^31 == -2147483648) or (2^31-1 == 2147483647)
         const max_most_significant: i32 = 0x7FFFFFFF / 10; // 214748364
-        let max_remaining = match x < 0 {
-            true  => 0x7FFFFFFF % 10, // 8
-            false => 0x7FFFFFFF % 10  // 7
-        };
+        let max_remaining = 0x7FFFFFFF % 10; // == 7 == 0b01111111 0b11111111 0b11111111 0b11111111 % 10
 
         // reverse the x.len()-1 most significants digits
         while x / 10 != 0 {
