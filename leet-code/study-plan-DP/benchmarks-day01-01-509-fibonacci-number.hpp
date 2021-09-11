@@ -8,6 +8,14 @@ static void BM_Solution(benchmark::State& state) {
 BENCHMARK(BM_Solution)->Range(1, 2048);
 
 
+static void BM_SolutionWithPair(benchmark::State& state) {
+  for (auto _ : state) {
+    SolutionWithPair().fib(state.range(0));
+  }
+}
+BENCHMARK(BM_SolutionWithPair)->Range(1, 2048);
+
+
 static void BM_SolutionWithAtomic(benchmark::State& state) {
   for (auto _ : state) {
     SolutionWithAtomic().fib(state.range(0));
