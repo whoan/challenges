@@ -24,5 +24,12 @@ static void BM_SolutionWithSwap(benchmark::State& state) {
 BENCHMARK(BM_SolutionWithSwap)->Range(1, 2048);
 
 
-// Run the benchmark
+static void BM_SolutionWithTailRecursion(benchmark::State& state) {
+  for (auto _ : state) {
+    SolutionWithTailRecursion().fib(state.range(0));
+  }
+}
+BENCHMARK(BM_SolutionWithTailRecursion)->Range(1, 2048);
+
+
 BENCHMARK_MAIN();
