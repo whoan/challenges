@@ -21,7 +21,22 @@ public:
     }
 };
 
-// more expensive but shorter
+// shorter
+class SolutionWithPair {
+public:
+    int fib(int n) {
+        if (n == 0) {
+            return 0;
+        }
+        auto fibResults = std::make_pair(0, 1);
+        for (int i = 1; i < n; ++i) {
+            fibResults = {fibResults.second, fibResults.first + fibResults.second};
+        }
+        return fibResults.second;
+    }
+};
+
+// aith atomic (expensive)
 class SolutionWithAtomic {
 public:
     int fib(int n) {
@@ -37,7 +52,7 @@ public:
     }
 };
 
-// more expensive but shorter
+// with swap
 class SolutionWithSwap {
 public:
     int fib(int n) {
