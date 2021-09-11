@@ -68,7 +68,7 @@ public:
     }
 };
 
-// snip("./day01-01-509-fibonacci-number-benchmarks.hpp")
+// snip("./benchmarks-day01-01-509-fibonacci-number.hpp")
 
 // snip g++ --std=c++17 -Wall -Wextra -pthread -g -O2 -lbenchmark day01-01-509-fibonacci-number.cpp
 
