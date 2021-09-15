@@ -6,7 +6,7 @@
 
 using Vertex = int;
 using Edges = std::vector<Vertex>;
-using Graph = std::map<Vertex, Edges>;
+using Graph = std::unordered_map<Vertex, Edges>;
 
 // see https://github.com/whoan/snip
 // snip("cpp/graph.hpp")
