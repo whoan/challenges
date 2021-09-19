@@ -25,4 +25,12 @@ static void BM_SolutionWithMax(benchmark::State& state) {
 BENCHMARK(BM_SolutionWithMax);
 
 
+static void BM_SolutionWithRecursion(benchmark::State& state) {
+  for (auto _ : state) {
+    SolutionWithRecursion().maxSubArray(input);
+  }
+}
+BENCHMARK(BM_SolutionWithRecursion);
+
+
 BENCHMARK_MAIN();
