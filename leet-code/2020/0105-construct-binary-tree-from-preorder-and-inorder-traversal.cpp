@@ -34,7 +34,7 @@ public:
                 continue;
             }
 
-            for (; seen.count(inorder[i+1]), ++i) {
+            for (; seen.count(inorder[i+1]); ++i) {
                 current = seen[inorder[i+1]];
                 seen.erase(inorder[i+1]);
             }
