@@ -6,6 +6,7 @@ impl Solution {
         let mut start: i32 = 0;
         let mut max : i32 = 0;
         for (end, current_char) in s.char_indices().map(|(i, c)| (i as i32 + 1, c as usize)) {
+            // this is not good for the branch predictor. TODO: improve
             if seen[current_char] > start {
                 start = seen[current_char];
             } else {
