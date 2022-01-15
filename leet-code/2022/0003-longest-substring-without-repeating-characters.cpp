@@ -6,6 +6,29 @@ public:
         if (s.empty()) {
             return 0;
         }
+        vector<int> indices(128, -1);
+        int max = 1;
+        int start = 0;
+        int idx = 0;
+        for (; idx < s.size(); ++idx) {
+            int current_char = s[idx];
+            auto seen = indices[current_char];
+            if (seen >= start) {
+                max = std::max(max, idx-start);
+                start = seen+1;
+            }
+            indices[current_char] = idx;
+        }
+        return std::max(max, idx-start);
+    }
+};
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        if (s.empty()) {
+            return 0;
+        }
         array<int, 256> char_indices;
         char_indices.fill(-1);
 
