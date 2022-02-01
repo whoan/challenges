@@ -4,6 +4,19 @@
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
+        int max = 0;
+        int lowest = prices.front();
+        for (int i=1; i < prices.size(); ++i) {
+            max = std::max(max, prices[i]-lowest);
+            lowest = std::min(lowest, prices[i]);
+        }
+        return max;
+    }
+};
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
         int max = 0, buy = prices.front();
         for (int i=1; i < prices.size(); ++i) {
             int today_price = prices[i];
