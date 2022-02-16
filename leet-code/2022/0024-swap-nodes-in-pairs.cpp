@@ -24,3 +24,17 @@ public:
         return head;
     }
 };
+
+class AlternativeSolution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        if (!head || !head->next) {
+            return head;
+        }
+        auto p1 = head;
+        auto p2 = head->next;
+        p1->next = swapPairs(p2->next);
+        p2->next = p1;
+        return p2;
+    }
+};
