@@ -58,7 +58,7 @@ public:
     }
 };
 
-// consiguous memory with a trick (only faster without gcc optimizations)
+// contiguous memory with a trick (only faster without gcc optimizations)
 class SolutionWithContiguousMemoryWithTrick {
 public:
     int deleteAndEarn(vector<int>& nums) {
