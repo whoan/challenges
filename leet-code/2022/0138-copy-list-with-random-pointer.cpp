@@ -17,6 +17,8 @@ public:
 };
 */
 
+// great solution: https://leetcode.com/problems/copy-list-with-random-pointer/discuss/811151/Extremely-simple-solution-using-C%2B%2B
+
 class Solution {
 public:
     Node* copyRandomList(Node* head) {
@@ -46,6 +48,83 @@ public:
             new_current = new_current->next;
         }
 
+        return new_head;
+    }
+};
+
+
+class AlternativeSolution {
+public:
+    Node* copyRandomList(Node* head) {
+        if (!head) {
+            return nullptr;
+        }
+
+        std::unordered_map<Node*, Node*> old_new;
+        auto old_node = head;
+        auto new_head = old_new.insert({old_node, new Node(old_node->val)}).first->second;
+        auto new_node = new_head;
+
+        while (old_node) {
+            decltype(old_new)::iterator it;
+            bool inserted = false;
+
+            if (old_node->random) {
+                std::tie(it, inserted) = old_new.insert({old_node->random, nullptr});
+                if (inserted) {
+                    it->second = new Node(old_node->random->val);
+                }
+                new_node->random = it->second;
+            }
+
+            if (old_node->next) {
+                std::tie(it, inserted) = old_new.insert({old_node->next, nullptr});
+                if (inserted) {
+                    it->second = new Node(old_node->next->val);
+                }
+                new_node->next = it->second;
+            }
+
+            old_node = old_node->next;
+            new_node = new_node->next;
+        }
+        return new_head;
+    }
+};
+
+
+class SlightlyCleanerSolution {
+public:
+    Node* copyRandomList(Node* head) {
+        if (!head) {
+            return nullptr;
+        }
+
+        std::unordered_map<Node*, Node*> old_new;
+        auto new_head = old_new.emplace(old_node, new Node(old_node->val)).first->second;
+
+        auto old_node = head;
+        auto new_node = new_head;
+        while (old_node) {
+            if (old_node->random) {
+                auto [it, inserted] = old_new.emplace(old_node->random, nullptr);
+                if (inserted) {
+                    it->second = new Node(old_node->random->val);
+                }
+                new_node->random = it->second;
+            }
+
+            if (old_node->next) {
+                auto [it, inserted] = old_new.emplace(old_node->next, nullptr);
+                if (inserted) {
+                    it->second = new Node(old_node->next->val);
+                }
+                new_node->next = it->second;
+            }
+
+            old_node = old_node->next;
+            new_node = new_node->next;
+        }
         return new_head;
     }
 };
