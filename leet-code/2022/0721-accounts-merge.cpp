@@ -32,10 +32,20 @@ class WeightedQuickUnionSolution {
         }
 
         int find(int id) {
+            int root = id;
+            while (ids[root] != root) {
+                root = ids[root];
+            }
+            /*
+            // path compression? flatten the tree
+            // this might make it more optimal (difficult to measure though)
+            // Robert Sedgewick and Kevin Wayne - Algorithms, 4th edition (pg. 231)
             while (ids[id] != id) {
                 id = ids[id];
+                ids[id] = root;
             }
-            return id;
+            */
+            return root;
         }
     };
 
