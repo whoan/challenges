@@ -1,7 +1,89 @@
 // https://leetcode.com/problems/accounts-merge/
 // Medium
 
-// This solution is similar to the quick-union implementaiton from:
+// This solution is similar to the weighted quick-union implementation from:
+// Robert Sedgewick and Kevin Wayne - Algorithms, 4th edition (pg. 227) (**)
+class WeightedQuickUnionSolution {
+
+    class UnionFind {
+        // this is the representation of the tree
+        std::array<int, 1000> ids;
+        // this is to know which tree to append to the other to guarantee log
+        std::array<size_t, 1000> sizes;
+    public:
+        UnionFind(int n) {
+            for (int i = 0; i < n; ++i) {
+                ids[i] = i;
+                sizes[i] = 1;
+            }
+        }
+
+        // (**)
+        void weighted_quick_union(int old_id, int new_id) {
+            int new_root = find(new_id);
+            int old_root = find(old_id);
+            if (sizes[new_root] < sizes[old_root]) {
+                ids[new_root] = old_root;
+                sizes[old_root] += sizes[new_root];
+            } else {
+                ids[old_root] = new_root;
+                sizes[new_root] += sizes[old_root];
+            }
+        }
+
+        int find(int id) {
+            while (ids[id] != id) {
+                id = ids[id];
+            }
+            return id;
+        }
+    };
+
+public:
+    vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {
+        // register root of each email and create UnionFind object to track relations
+        UnionFind union_find(accounts.size());
+        std::unordered_map<string, int> mail_root;
+        for (int root_id = 0; root_id < accounts.size(); ++root_id) {
+            auto& account = accounts[root_id];
+            for (int j = 1; j < account.size(); ++j) {
+                auto& mail = account[j];
+                auto [it, inserted] = mail_root.emplace(std::move(mail), root_id);
+                if (!inserted) {
+                    union_find.weighted_quick_union(it->second, root_id);
+                }
+            }
+        }
+
+        // reuse input vector (maintaining account owners)
+        for (auto& account : accounts) {
+            account.resize(1);
+        }
+
+        // merge emails per account
+        for (auto& [mail, id] : mail_root) {
+            auto& account = accounts[union_find.find(id)];
+            account.push_back(std::move(mail));
+        }
+
+        // remove empty accounts (the ones that were "unioned" and now only contain owner name)
+        accounts.erase(
+            std::remove_if(accounts.begin(), accounts.end(), [] (const auto& account) {
+                return account.size() == 1;
+            }),
+            accounts.end()
+        );
+
+        // sort emails in the accounts to satisfy condition
+        for (auto& account : accounts) {
+            std::sort(std::next(account.begin()), account.end());
+        }
+
+        return std::move(accounts);
+    }
+};
+
+// This solution is similar to the quick-union implementation from:
 // Robert Sedgewick and Kevin Wayne - Algorithms, 4th edition (pg. 224) (*)
 class QuickUnionSolution {
 
@@ -159,5 +241,6 @@ Test data:
 [["Gabe","Gabe0@m.co","Gabe3@m.co","Gabe1@m.co"],["Kevin","Kevin3@m.co","Kevin5@m.co","Kevin0@m.co"],["Ethan","Ethan5@m.co","Ethan4@m.co","Ethan0@m.co"],["Hanzo","Hanzo3@m.co","Hanzo1@m.co","Hanzo0@m.co"],["Fern","Fern5@m.co","Fern1@m.co","Fern0@m.co"]]
 [["David","David0@m.co","David1@m.co"],["David","David3@m.co","David4@m.co"],["David","David4@m.co","David5@m.co"],["David","David2@m.co","David3@m.co"],["David","David1@m.co","David2@m.co"]]
 [["David","David0@m.co","David4@m.co","David3@m.co"],["David","David5@m.co","David5@m.co","David0@m.co"],["David","David1@m.co","David4@m.co","David0@m.co"],["David","David0@m.co","David1@m.co","David3@m.co"],["David","David4@m.co","David1@m.co","David3@m.co"]]
+[["Alex","Alex2@m.co","Alex6@m.co","Alex1@m.co","Alex5@m.co","Alex9@m.co"],["Alex","Alex9@m.co","Alex4@m.co","Alex3@m.co","Alex0@m.co","Alex11@m.co"],["Alex","Alex9@m.co","Alex5@m.co","Alex6@m.co","Alex7@m.co","Alex12@m.co"],["Alex","Alex6@m.co","Alex5@m.co","Alex12@m.co","Alex11@m.co","Alex10@m.co"],["Alex","Alex1@m.co","Alex5@m.co","Alex10@m.co","Alex9@m.co","Alex11@m.co"],["Alex","Alex9@m.co","Alex5@m.co","Alex1@m.co","Alex3@m.co","Alex1@m.co"],["Alex","Alex10@m.co","Alex0@m.co","Alex3@m.co","Alex0@m.co","Alex0@m.co"],["Alex","Alex7@m.co","Alex3@m.co","Alex6@m.co","Alex7@m.co","Alex2@m.co"],["Alex","Alex8@m.co","Alex6@m.co","Alex4@m.co","Alex6@m.co","Alex2@m.co"],["Alex","Alex10@m.co","Alex9@m.co","Alex11@m.co","Alex10@m.co","Alex9@m.co"],["Alex","Alex0@m.co","Alex2@m.co","Alex9@m.co","Alex1@m.co","Alex6@m.co"],["Alex","Alex6@m.co","Alex5@m.co","Alex7@m.co","Alex8@m.co","Alex10@m.co"]]
 
 */
