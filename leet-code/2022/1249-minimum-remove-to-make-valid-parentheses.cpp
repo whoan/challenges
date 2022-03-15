@@ -34,3 +34,39 @@ public:
         return result;
     }
 };
+
+class AlternativeSolutionWithoutExtraSpace {
+public:
+    string minRemoveToMakeValid(string s) {
+        std::queue<int> queue; // use queue to avoid shifting chars as much as possible
+        int index_override = 0;
+        // create string without extra ')'s
+        for (int i = 0; i < s.size(); ++i) {
+            char c = s[i];
+            if (c == '(') {
+                queue.push(index_override);
+            } else if (c == ')') {
+                if (queue.empty()) {
+                    continue;
+                }
+                queue.pop();
+            }
+            s[index_override++] = c;
+        }
+        s.resize(index_override);
+
+        // remove extra '('s
+        if (!queue.empty()) {
+            index_override = queue.front();
+            for (int i = queue.front(); i < s.size(); ++i) {
+                if (!queue.empty() && queue.front() == i) {
+                    queue.pop();
+                    continue;
+                }
+                s[index_override++] = s[i];
+            }
+        }
+        s.resize(index_override);
+        return s;
+    }
+};
