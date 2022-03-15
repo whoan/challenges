@@ -1,15 +1,15 @@
 #include <bits/stdc++.h>
 
-template <typename T>
+template <typename Collection>
 class BackTrack {
-  T chosen;
+  Collection chosen;
 
 public:
-  BackTrack(T collection) {
+  BackTrack(Collection collection) {
     explore(collection, 0);
   }
 
-  void choose(const T& collection, std::size_t choice) {
+  void choose(const Collection& collection, std::size_t choice) {
     chosen.push_back(collection[choice]);
   }
 
@@ -25,7 +25,7 @@ public:
     std::cerr << std::endl;
   }
 
-  void explore(const T& collection, std::size_t start) {
+  void explore(const Collection& collection, std::size_t start) {
     doSomething(); // do something with every partial result
     for (std::size_t choice=start; choice < collection.size(); ++choice) {
       choose(collection, choice);
