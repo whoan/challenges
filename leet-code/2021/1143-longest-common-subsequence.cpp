@@ -2,7 +2,6 @@
 
 // https://en.wikipedia.org/wiki/Longest_common_subsequence_problem
 
-// TODO: ou don't need to save all the previous values (only two vectors would be enough)
 class Solution {
 public:
     int longestCommonSubsequence(string text1, string text2) {
@@ -57,6 +56,9 @@ public:
         return matrix.back().back();
     }
 };
+
+// TODO: you don't need to save all the previous values (only two vectors would be enough)
+// example: https://leetcode.com/problems/longest-common-subsequence/discuss/348884/C%2B%2B-with-picture-O(nm)
 
 /*
 Dataset:
