@@ -56,6 +56,22 @@ public:
     }
 };
 
+class ShorterSolution {
+public:
+    int search(vector<int>& nums, int target) {
+        int left = 0, right = nums.size()-1;
+        while (left < right) {
+            int mid = left + (right-left)/2;
+            if (nums[mid] == target) {
+                return mid;
+            }
+            left  = std::array<int, 2>{left, mid+1}[bool(nums[mid] < target)];
+            right = std::array<int, 2>{mid, right}[bool(nums[mid] < target)];
+        }
+        return nums[left] == target ? left : -1;
+    }
+};
+
 /*
 Test data:
 [-1,0,3,5,9,12]
