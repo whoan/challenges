@@ -1,26 +1,52 @@
 // https://leetcode.com/problems/the-k-weakest-rows-in-a-matrix/
 // Easy
 
-// seems like a Heap is the way to go here, but I took another approach
-
-// final
+// heap approach: cleaner one but wasn't faster than the other solutions
 class Solution {
+public:
+    vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
+        enum {STRENGTH, INDEX};
+        std::priority_queue<std::pair<int, int>> heap;
+        for (int index = 0; index < mat.size(); ++index) {
+            auto& row = mat[index];
+            heap.emplace(
+                // STRENGTH
+                std::distance(
+                    row.begin(),
+                    std::lower_bound(row.begin(), row.end(), 0, std::greater<int>())
+                ),
+                index
+            );
+            if (index >= k) {
+                heap.pop();
+            }
+        }
+
+        std::vector<int> result(k);
+        for (int i = k-1; i >= 0; --i) {
+            result[i] = std::get<INDEX>(heap.top());
+            heap.pop();
+        };
+        return result;
+    }
+};
+
+class FinalSortingSolution {
 public:
     vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
         enum {STRENGTH, INDEX};
         for (int i = 0; i < mat.size(); ++i) {
             auto& row = mat[i];
-            constexpr int max_rows = 100;
             row[STRENGTH] = std::distance(
                 row.begin(),
                 std::lower_bound(row.begin(), row.end(), 0, std::greater<int>())
-            ) * max_rows + i; // trick to give more weight to elements with equal # of soldiers but bigger index
+            );
             row[INDEX] = i;
         }
 
         // see https://youtu.be/-0tO3Eni2uo?t=305
         my_partial_sort(mat, k, [] (auto& v1, auto& v2) {
-            return v1[STRENGTH] < v2[STRENGTH];
+            return make_pair(v1[STRENGTH], v1[INDEX]) < make_pair(v2[STRENGTH], v2[INDEX]);
         });
 
         std::vector<int> result;
@@ -85,7 +111,7 @@ public:
             ) * 100 + i;
             row[INDEX] = i;
         }
-        // stable might actually be slower in practice: https://youtu.be/-0tO3Eni2uo?t=135
+        // partial_sort might actually be slower in practice: https://youtu.be/-0tO3Eni2uo?t=135
         std::partial_sort(mat.begin(), next(mat.begin(), k), mat.end(), [] (auto& v1, auto& v2) {
             return v1[STRENGTH] < v2[STRENGTH];
         });
