@@ -23,6 +23,29 @@ public:
     }
 };
 
+class AlternativeSolution {
+    bool char_deleted = false;
+public:
+    bool validPalindrome(string s) {
+        return isValid(s, 0, s.size()-1);
+    }
+
+    bool isValid(string& s, int left, int right) {
+        while (left < right) {
+            if (s[left] != s[right]) {
+                if (char_deleted) {
+                    return false;
+                }
+                char_deleted = true;
+                return isValid(s, left+1, right) || isValid(s, left, right-1);
+            }
+            ++left;
+            --right;
+        }
+        return true;
+    }
+};
+
 /*
 Test data:
 "eceec"
