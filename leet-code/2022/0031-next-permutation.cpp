@@ -5,6 +5,22 @@
 class Solution {
 public:
     void nextPermutation(vector<int>& nums) {
+        for (int i = nums.size()-1; i >= 1; --i) {
+            if (nums[i-1] < nums.back()) {
+                auto found = std::upper_bound(std::next(nums.begin(), i), nums.end(), nums[i-1]);
+                std::swap(nums[i-1], *found);
+                break;
+            }
+            for (int j = i-1; j < nums.size()-1 && nums[j] > nums[j+1]; ++j) {
+                std::swap(nums[j], nums[j+1]);
+            }
+        }
+    }
+};
+
+class OldSolution {
+public:
+    void nextPermutation(vector<int>& nums) {
         array<int, 101> indices;
         indices.fill(-1);
         int i = nums.size()-1;
