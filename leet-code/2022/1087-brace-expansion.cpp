@@ -23,10 +23,12 @@ public:
             if (c == '{') {
                 string_view view(s);
                 auto options = get_options(view.substr(i+1, s.find('}', i) - i - 1));
-                int current_size = result.size();
+                int original_size = result.size();
                 duplicate(result, options.size());
                 for (int j = 0; j < result.size(); ++j) {
-                    result[j].push_back(s[i + 1 + (2 * (j / current_size))]);
+                    // i + 1 to skip the '{'
+                    // 2 * (j / original_size) is the offset for the next option. eg: {a,b} -> option a, then option b
+                    result[j].push_back(s[i + 1 + (2 * (j / original_size))]);
                 }
                 i += options.size() * 2;
             } else {
