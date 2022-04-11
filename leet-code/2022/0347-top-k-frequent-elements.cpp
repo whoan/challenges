@@ -1,8 +1,61 @@
 // https://leetcode.com/problems/top-k-frequent-elements/
 // Medium
 
-// It can also be implemented with a heap,
-// and even in avg O(N) with Hoare's Quickselect algorithm: https://en.wikipedia.org/wiki/Quickselect
+// Alternative (quick select -> O(N))
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        std::unordered_map<int, int> count;
+        for (int n : nums) {
+            ++count[n];
+        }
+        std::vector<std::pair<int, int>> pairs(count.size());
+        std::copy(count.begin(), count.end(), std::back_inserter(pairs));
+        count.clear();
+        std::nth_element(
+            pairs.begin(),
+            std::next(pairs.begin(), k),
+            pairs.end(),
+            [] (const auto& pair1, const auto& pair2) {
+                return pair1.second > pair2.second;
+            }
+        );
+        pairs.resize(k);
+        std::vector<int> result;
+        std::transform(
+            pairs.begin(),
+            pairs.end(),
+            std::back_inserter(result),
+            [] (auto& pair) { return pair.first; }
+        );
+        return result;
+    }
+};
+
+// Alternative (sorting -> O(N*log(N)))
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        std::unordered_map<int, int> count;
+        for (int n : nums) {
+            ++count[n];
+        }
+        std::vector<std::pair<int, int>> pairs(count.size());
+        std::copy(count.begin(), count.end(), std::back_inserter(pairs));
+        count.clear();
+        std::sort(pairs.begin(), pairs.end(), [] (const auto& pair1, const auto& pair2) {
+            return pair1.second > pair2.second;
+        });
+        std::vector<int> result;
+        std::transform(
+            pairs.begin(),
+            std::next(pairs.begin(), k),
+            std::back_inserter(result),
+            [] (auto& pair) { return pair.first; }
+        );
+        return result;
+    }
+};
 
 class Solution {
 public:
