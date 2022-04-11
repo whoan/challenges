@@ -18,11 +18,11 @@ public:
         }
 
         std::vector<vector<int>> result;
-        for (auto& [first, frist_count] : occurrences) {
+        for (auto& [first, first_count] : occurrences) {
             if (first >= 0) {
                 continue;
             }
-            --frist_count;
+            --first_count;
             for (auto& [second, second_count] : occurrences) {
                 int third = -first-second;
 
@@ -42,7 +42,7 @@ public:
                 }
                 ++second_count;
             }
-            ++frist_count;
+            ++first_count;
         }
 
         // special case: [0,0,0]
