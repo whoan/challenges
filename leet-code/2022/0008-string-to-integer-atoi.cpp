@@ -1,4 +1,5 @@
 // https://leetcode.com/problems/string-to-integer-atoi/
+// Medium
 
 class Solution {
 public:

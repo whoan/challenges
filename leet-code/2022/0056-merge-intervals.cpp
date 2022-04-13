@@ -1,4 +1,5 @@
 // https://leetcode.com/problems/merge-intervals/
+// Medium
 
 class Solution {
 public:

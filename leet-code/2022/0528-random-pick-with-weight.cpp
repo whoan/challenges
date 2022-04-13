@@ -1,5 +1,5 @@
 // https://leetcode.com/problems/random-pick-with-weight
-// Meduim
+// Medium
 
 class Solution {
     // eg: for [5, 10, 2], we model something like this: [-----|----------|--]

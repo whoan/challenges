@@ -1,5 +1,5 @@
 // https://leetcode.com/problems/group-shifted-strings/submissions/
-// Meduim
+// Medium
 
 class Solution {
 public:

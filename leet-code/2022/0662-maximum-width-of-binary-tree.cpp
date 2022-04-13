@@ -1,3 +1,6 @@
+// https://leetcode.com/problems/maximum-width-of-binary-tree/
+// Medium
+
 /**
  * Definition for a binary tree node.
  * struct TreeNode {

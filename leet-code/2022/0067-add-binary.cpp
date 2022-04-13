@@ -1,4 +1,5 @@
 // https://leetcode.com/problems/add-binary/
+// Easy
 
 class Solution {
 public:

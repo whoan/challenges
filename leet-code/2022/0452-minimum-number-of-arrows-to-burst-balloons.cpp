@@ -1,4 +1,5 @@
 // https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons
+// Medium
 
 class Solution {
 public:

@@ -1,4 +1,5 @@
 // https://leetcode.com/problems/sum-of-root-to-leaf-binary-numbers/
+// Easy
 
 /**
  * Definition for a binary tree node.
