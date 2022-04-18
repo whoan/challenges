@@ -9,12 +9,13 @@ public:
     explore(collection, 0);
   }
 
-  void choose(const Collection& collection, std::size_t choice) {
-    chosen.push_back(collection[choice]);
-  }
-
-  void unchoose() {
-    chosen.pop_back();
+  void explore(const Collection& collection, std::size_t start) {
+    doSomething(); // do something with every partial result
+    for (std::size_t choice=start; choice < collection.size(); ++choice) {
+      choose(collection, choice);
+      explore(collection, choice + 1);
+      unchoose();
+    }
   }
 
   void doSomething() {
@@ -25,13 +26,12 @@ public:
     std::cerr << std::endl;
   }
 
-  void explore(const Collection& collection, std::size_t start) {
-    doSomething(); // do something with every partial result
-    for (std::size_t choice=start; choice < collection.size(); ++choice) {
-      choose(collection, choice);
-      explore(collection, choice + 1);
-      unchoose();
-    }
+  void choose(const Collection& collection, std::size_t choice) {
+    chosen.push_back(collection[choice]);
+  }
+
+  void unchoose() {
+    chosen.pop_back();
   }
 };
 
