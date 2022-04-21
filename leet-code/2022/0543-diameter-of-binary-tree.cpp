@@ -1,5 +1,6 @@
 // https://leetcode.com/problems/diameter-of-binary-tree/
 // Easy
+// ...felt like medium to me
 
 /**
  * Definition for a binary tree node.
