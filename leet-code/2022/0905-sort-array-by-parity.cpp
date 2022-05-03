@@ -21,9 +21,7 @@ public:
                 --j;
                 continue;
             }
-            std::swap(nums[i], nums[j]);
-            ++i;
-            --j;
+            std::swap(nums[i++], nums[j--]);
         }
         return std::move(nums);
     }
