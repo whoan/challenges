@@ -3,6 +3,7 @@
 
 class MyStack {
 public:
+    // use emptry_one as a temporary buffer and should be empty again after each push()
     void push(int x) {
         empty_one.push(x);
         while (!another.empty()) {
