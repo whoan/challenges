@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 
 // template for backtracking
-// this is just ONE of the multiple uses of backtracking (see mor examples below)
+// this is just ONE of the multiple uses of backtracking (see more examples below)
 template <typename Collection>
 class BackTrack {
   Collection chosen;
