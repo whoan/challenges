@@ -24,6 +24,8 @@ private:
             backtrack(candidates, target, sum+n, index+1);
             current.pop_back();
             auto current_it = std::next(candidates.begin(), index);
+            // theoretically, BS would be better but these are just a few elements, so I think
+            // it's better to iterate to take advantage of locality of cache
             index += 1 + std::distance(
                 current_it,
                 std::adjacent_find(current_it, candidates.end(), std::not_equal_to())
