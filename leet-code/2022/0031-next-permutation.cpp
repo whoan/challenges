@@ -1,8 +1,31 @@
 // https://leetcode.com/problems/next-permutation
 // Medium
-// C++ already has an algorithm for this: https://en.cppreference.com/w/cpp/algorithm/next_permutation
 
 class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        auto begin = nums.begin();
+        for (int i = nums.size()-1; i >= 1; --i) {
+            if (nums[i-1] < nums[i]) {
+                begin = std::next(nums.begin(), i);
+                auto found = std::lower_bound(begin, nums.end(), nums[i-1], std::greater<int>());
+                std::swap(nums[i-1], *std::prev(found));
+                break;
+            }
+        }
+        std::reverse(begin, nums.end());
+    }
+};
+
+class StdSolution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        std::next_permutation(nums.begin(), nums.end());
+    }
+};
+
+// wasteful to swap every time
+class AnotherSolution {
 public:
     void nextPermutation(vector<int>& nums) {
         for (int i = nums.size()-1; i >= 1; --i) {
@@ -33,6 +56,7 @@ public:
                 break;
             }
         }
+        // I think I should just use reverse
         std::sort(std::next(std::begin(nums), i), std::end(nums));
     }
 };
@@ -48,6 +72,7 @@ public:
                 break;
             }
         }
+        // I think I should just use reverse
         std::sort(std::next(std::begin(nums), i), std::end(nums));
     }
 
