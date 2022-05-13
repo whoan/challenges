@@ -2,7 +2,9 @@
 !**/rust/*.rs
 
 a.out
+.vscode/
 trash/
 *WIP-*
 *SLOW-*
 *.png
+*-workspace
