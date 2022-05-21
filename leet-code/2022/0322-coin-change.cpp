@@ -1,6 +1,33 @@
 // https://leetcode.com/problems/coin-change/
 // Medium
 
+// 2022-05-21 daily
+// branchless version (didn't work any better)
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        constexpr int max_size = 1e4+1, impossible=std::numeric_limits<int>::max();
+        std::array<int, max_size> memo;
+        memo.fill(impossible);
+        memo[0] = 0;
+
+        // optimization (ignore coins bigger than "amount")
+        auto end = std::partition(coins.begin(), coins.end(), [amount] (int n) {
+            return n <= amount;
+        });
+        coins.resize(coins.begin() != end ? std::distance(coins.begin(), end) : 1);
+
+        std::sort(coins.begin(), coins.end(), std::greater<int>());
+        for (int current = coins.back(); current <= amount; ++current) {
+            for (int coin : coins) {
+                bool replace = coin <= current && memo[current] > memo[current-coin] && memo[current-coin] != impossible;
+                memo[current] = replace * (replace + memo[current-replace*coin]) + (!replace) * memo[current];
+            }
+        }
+        return memo[amount] == impossible ? -1 : memo[amount];
+    }
+};
+
 class Solution {
     static constexpr size_t length = 1e4+1;
     static constexpr int max = std::numeric_limits<int>::max();
