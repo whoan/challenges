@@ -1,7 +1,9 @@
 // https://leetcode.com/problems/missing-number/
 // Easy
 
-// as numbers are contiguous, XOR (also) the indices and you'll get the rsult
+// different approaches: https://leetcode.com/problems/missing-number/discuss/69786/3-different-ideas%3A-XOR-SUM-Binary-Search.-Java-code
+
+// as numbers are contiguous, XOR (also) the indices and you'll get the result
 class Solution {
 public:
     int missingNumber(vector<int>& nums) {
@@ -15,11 +17,11 @@ public:
 class ClearerSolution {
 public:
     int missingNumber(vector<int>& nums) {
-        int result = 0;
+        int result = nums.size();
         for (int idx=0; idx < nums.size(); ++idx) {
             result ^= nums[idx];
             result ^= idx;
         }
-        return result ^ nums.size();
+        return result;
     }
 };
