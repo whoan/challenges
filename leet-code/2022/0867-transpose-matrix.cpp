@@ -8,8 +8,8 @@ public:
         int n = matrix[0].size();
         if (m == n) {
             // in-place processing
-            for (int row = 0; row < matrix.size(); ++row) {
-                for (int column = row+1; column < matrix[0].size(); ++column) {
+            for (int row = 0; row < m; ++row) {
+                for (int column = row+1; column < n; ++column) {
                     std::swap(matrix[row][column], matrix[column][row]);
                 }
             }
