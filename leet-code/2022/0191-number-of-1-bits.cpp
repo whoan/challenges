@@ -2,6 +2,7 @@
 // Easy
 
 // Relevant: https://stackoverflow.com/questions/12380478/bits-counting-algorithm-brian-kernighan-in-an-integer-time-complexity
+// It can also be done with https://en.wikipedia.org/wiki/SSE4#POPCNT_and_LZCNT
 
 class Solution {
 public:
