@@ -6,7 +6,6 @@ public:
     vector<int> arrayChange(vector<int>& nums, vector<vector<int>>& operations) {
         constexpr int max = 1e6+1;
         std::array<int, max> indices;
-        indices.fill(-1);
         for (int i = 0; i < nums.size(); ++i) {
             indices[nums[i]] = i;
         }
