@@ -4,6 +4,51 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
+        constexpr int not_seen = -1;
+        std::array<int, 128> seen;
+        seen.fill(not_seen);
+        int count = 0, max_count = 0;
+        for (int i = 0; i < s.size(); ++i) {
+            char c = s[i];
+            if (seen[c] >= seen[s[i-count]]) {
+                max_count = std::max(count, max_count);
+                int last_seen_index = seen[c];
+                count = i - last_seen_index -1;
+            }
+            ++count;
+            seen[c] = i;
+        }
+        return std::max(count, max_count);
+    }
+};
+
+class NewNotGoodSolution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        constexpr int not_seen = -1;
+        std::array<int, 128> seen;
+        seen.fill(not_seen);
+        int count = 0, max_count = 0;
+        for (int i = 0; i < s.size(); ++i) {
+            char c = s[i];
+            if (seen[c] != not_seen) {
+                max_count = std::max(count, max_count);
+                int last_seen_index = seen[c];
+                for (int j = i-count; j < last_seen_index; ++j) {
+                    seen[s[j]] = not_seen;
+                }
+                count = i - last_seen_index - 1;
+            }
+            ++count;
+            seen[c] = i;
+        }
+        return std::max(count, max_count);
+    }
+};
+
+class OldSolution {
+public:
+    int lengthOfLongestSubstring(string s) {
         if (s.empty()) {
             return 0;
         }
@@ -49,7 +94,7 @@ public:
 };
 
 // I don't need length here. it can be calculated from char_indices[current] - start (see above)
-class NotGreaSolution {
+class NotGreatSolution {
 public:
     int lengthOfLongestSubstring(string s) {
         if (s.empty()) {
@@ -75,3 +120,12 @@ public:
         return max;
     }
 };
+
+/*
+Test data:
+"dvdf"
+"abba"
+"abcabcbb"
+"bbbbb"
+"pwwkew"
+*/
