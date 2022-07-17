@@ -36,7 +36,7 @@ public:
     }
 };
 
-// aith atomic (expensive)
+// with atomic (expensive)
 class SolutionWithAtomic {
 public:
     int fib(int n) {
