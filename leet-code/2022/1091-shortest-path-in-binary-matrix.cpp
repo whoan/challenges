@@ -1,7 +1,7 @@
 // https://leetcode.com/problems/shortest-path-in-binary-matrix/
 // Medium
 
-// BFS (done in a rush)
+// BFS (old solution done in a rush)
 class Solution {
     static constexpr int max = std::numeric_limits<int>::max();
     vector<vector<int>> grid;
@@ -103,3 +103,111 @@ public:
         dfs(row-1, column-1, new_length);
     }
 };
+
+///// New solutions for the daily 2022-05-16
+
+// Useful comment: https://stackoverflow.com/a/21264142/4095830
+// > You need a specific heuristic to use A*. If you can't find one, then Uniform Cost Search (a modified BFS) might help.
+
+// Should I also try Iterative deepening depth-first search? https://en.wikipedia.org/wiki/Iterative_deepening_depth-first_search
+// > IDDFS is optimal like breadth-first search, but uses much less memory
+
+// Dial's algorithm?: https://www.geeksforgeeks.org/dials-algorithm-optimized-dijkstra-for-small-range-weights/
+
+// SPF
+
+// BFS
+class Solution {
+    enum { Clear, Rock };
+    enum { Row, Column };
+    using Coordinates = std::pair<char, char>; // char over int reduces memory from 19.3 to 17.8 MB
+public:
+    int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
+        int& source = grid[0][0];
+        int& dest = grid.back().back();
+        if (source == Rock || dest == Rock) {
+            return -1;
+        }
+        source = -1; // calculate length with negative numbers
+        std::queue<Coordinates> queue;
+        queue.push({0, 0});
+        const int n = grid.size();
+        while (!queue.empty()) {
+            auto [row, column] = queue.front(); queue.pop();
+            const int length = grid[row][column];
+            if (dest < 0) {
+                break;
+            }
+            for (int i = 0; i < directions.size(); ++i) {
+                char new_row    = std::clamp(row + get<Row>(directions[i]), 0, n-1);
+                char new_column = std::clamp(column + get<Column>(directions[i]), 0, n-1);
+                int& next_length = grid[new_row][new_column];
+                if (next_length == Clear || next_length < length - 1) {
+                    next_length = length - 1;
+                    queue.push({new_row, new_column});
+                }
+            }
+        }
+        return dest ? -dest : -1;
+    }
+
+    std::array<Coordinates, 8> directions = {{
+        { 1,  1}, // ↘
+        { 0,  1}, // →
+        { 1,  0}, // ↓
+        {-1,  1}, // ↗
+        { 1, -1}, // ↙
+        { 0, -1}, // ←
+        {-1,  0}, // ↑
+        {-1, -1}, // ↖
+    }};
+};
+
+// DFS
+class NewerTLESolution {
+    enum { Clear, Rock };
+public:
+    int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
+        int& source = grid[0][0];
+        int& dest = grid.back().back();
+        if (source == Rock || dest == Rock) {
+            return -1;
+        }
+        source = -1; // calculate length with negative numbers
+        dfs(grid);
+        return dest ? -dest : -1;
+    }
+
+    void dfs(vector<vector<int>>& grid, int row=0, int column=0, int length=-1) {
+        enum { Row, Column };
+        const int n = grid.size();
+        for (int i = 0; i < directions.size(); ++i) {
+            int new_row    = std::clamp(row + directions[i][Row], 0, n-1);
+            int new_column = std::clamp(column + directions[i][Column], 0, n-1);
+            int& next_length = grid[new_row][new_column];
+            if (next_length == Clear || next_length < length - 1) {
+                next_length = length - 1;
+                dfs(grid, new_row, new_column, next_length);
+            }
+        }
+    }
+
+    std::array<std::array<int, 2>, 8> directions = {
+         1,  1, // ↘
+         0,  1, // →
+         1,  0, // ↓
+        -1,  1, // ↗
+         1, -1, // ↙
+         0, -1, // ←
+        -1,  0, // ↑
+        -1, -1  // ↖
+    };
+};
+
+/*
+Test data:
+[[0,1],[1,0]]
+[[0,0,0],[0,1,1],[1,0,0]]
+[[0,0,0],[1,1,0],[1,1,0]]
+[[1,0,0],[1,1,0],[1,1,0]]
+*/
