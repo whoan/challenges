@@ -1,7 +1,24 @@
 // https://leetcode.com/problems/binary-tree-inorder-traversal/
 // Easy
 
+// Morris-like
+
 class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        std::vector<int> result;
+        for (auto current = root; current; current = current->right) {
+            for (auto diagonal = current->left; diagonal; diagonal = current->left) {
+                while (diagonal->right) diagonal = diagonal->right;
+                tie(diagonal->right, current, current->left) = make_tuple(current, current->left, nullptr);
+            }
+            result.push_back(current->val);
+        }
+        return result;
+    }
+};
+
+class LongerSolution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
         vector<int> result;
