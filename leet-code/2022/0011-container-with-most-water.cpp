@@ -5,6 +5,20 @@ class Solution {
 public:
     int maxArea(vector<int>& height) {
         int max = 0;
+        for (int i=0, j=height.size()-1; i < j; ) {
+            max = std::max(max, std::min(height[i], height[j])*(j-i));
+            bool moveLeft = height[i] < height[j];
+            i += moveLeft;
+            j -= !moveLeft;
+        }
+        return max;
+    }
+};
+
+class LongerSolution {
+public:
+    int maxArea(vector<int>& height) {
+        int max = 0;
         for (int i = 0, j = height.size()-1; i < j; ) {
             int amount = std::min(height[j], height[i]) * (j-i);
             max = std::max(amount, max);
