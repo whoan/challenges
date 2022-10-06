@@ -8,3 +8,4 @@ trash/
 *SLOW-*
 *.png
 *-workspace
+.DS_Store
