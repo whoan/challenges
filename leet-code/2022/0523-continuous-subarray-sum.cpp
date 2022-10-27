@@ -1,6 +1,22 @@
 // https://leetcode.com/problems/continuous-subarray-sum/
 // Medium
 
+class Solution {
+public:
+    bool checkSubarraySum(vector<int>& nums, int k) {
+        std::unordered_set<int> seen { nums.front() % k };
+        int sum = nums.front();
+        return std::adjacent_find(nums.begin(), nums.end(), [k, &seen, &sum] (int a, int b) {
+            std::tie(a, b) = make_pair(a % k, b % k);
+            sum += b;
+            int remainder = sum % k;
+            bool result = (a == 0 && b == 0) || remainder == 0 || (b && seen.count(remainder));
+            seen.insert(remainder);
+            return result;
+        }) != nums.end();
+    }
+};
+
 // loved it: https://leetcode.com/problems/continuous-subarray-sum/discuss/236976/Python-solution
 // if sum(nums[i:j]) % k == 0 for some i < j, then sum(nums[:j]) % k == sum(nums[:i]) % k
 // inspired by idea above
@@ -97,5 +113,23 @@ https://leetcode.com/submissions/detail/668382412/
 [23,2,6,4,7]
 6
 [23,2,6,4,7]
+13
+[1,5,0,4]
+6
+[1,3,0,6]
+6
+[1,2,12]
+6
+[23,6,9]
+6
+[1,1]
+3
+[0,0]
+1
+[23,2,6,4,7,0]
+13
+[23,2,6,4,7,0,0]
+13
+[23,2,6,0,4,7,0]
 13
 */
