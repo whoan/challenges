@@ -1,6 +1,25 @@
 // https://leetcode.com/problems/group-anagrams/
 // Medium
 
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        std::unordered_map<string, std::vector<string>> groups;
+        for (auto& s : strs) {
+            auto sorted = sort(s);
+            groups[std::move(sorted)].push_back(std::move(s));
+        }
+        vector<vector<string>> result; result.reserve(groups.size());
+        std::transform(groups.begin(), groups.end(), std::back_inserter(result), [] (auto& pair) { return std::move(pair.second); });
+        return result;
+    }
+private:
+    string sort(string s) {
+        std::sort(s.begin(), s.end());
+        return s;
+    }
+};
+
 // sorting each time is faster than counting and comparing
 class Solution {
 public:

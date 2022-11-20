@@ -34,3 +34,17 @@ public:
         return result;
     }
 };
+
+// slower because it applies some functions unnecessarily
+class BranchlessButSlowerSolution {
+public:
+    string removeDuplicates(string s) {
+        string result; result.reserve(s.size());
+        for (char c : s) {
+            bool duplicate = !result.empty() && result.back() == c;
+            result.resize(result.size() - duplicate);
+            result.append(!duplicate, c);
+        }
+        return result;
+    }
+};
