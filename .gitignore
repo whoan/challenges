@@ -6,6 +6,7 @@ a.out
 trash/
 *WIP-*
 *SLOW-*
+*HORRIBLE-*
 *.png
 *-workspace
 .DS_Store
