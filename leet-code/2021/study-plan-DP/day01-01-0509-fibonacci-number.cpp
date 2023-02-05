@@ -74,7 +74,7 @@ class SolutionWithTailRecursion {
 public:
     int fib(int n, int next=0, int nextNext=1) {
         if (n == 0) {
-            return next;
+            return 0;
         }
         if (n == 1) {
             return nextNext;

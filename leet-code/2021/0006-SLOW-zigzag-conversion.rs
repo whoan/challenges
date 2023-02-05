@@ -7,7 +7,7 @@ You can think of the zig zag as a two part movement:
 // (16ms) faster than 16.3% of submissions. Won the slooowww badge
 impl SlowSolution {
     pub fn convert(s: String, num_rows: i32) -> String {
-        if num_rows == 1 || num_rows >= s.len() {
+        if num_rows == 1 || num_rows >= s.len() as i32 {
             return s;
         }
 
