@@ -12,12 +12,31 @@ public:
         std::partial_sum(potions_strength_count.rbegin(), potions_strength_count.rend(), potions_strength_count.rbegin());
         std::vector<int> pairs; pairs.reserve(spells.size());
         for (int spell_strength : spells) {
-            int min_potion_strength = success / spell_strength;
-            min_potion_strength += (long long)spell_strength*min_potion_strength < success;
+            long long min_potion_strength = success / spell_strength;
+            min_potion_strength += spell_strength*min_potion_strength < success;
             pairs.push_back(min_potion_strength >= potions_strength_count.size()
                 ? 0
                 : potions_strength_count[min_potion_strength]
             );
+        }
+        return pairs;
+    }
+};
+
+class Solution {
+public:
+    vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long success) {
+        std::sort(potions.begin(), potions.end());
+        std::vector<int> pairs; pairs.reserve(spells.size());
+        auto it = potions.end();
+        for (int spell_strength : spells) {
+            long long min_potion_strength = success / spell_strength;
+            if (min_potion_strength*spell_strength == success) {
+                it = std::lower_bound(potions.begin(), potions.end(), min_potion_strength);
+            } else {
+                it = std::upper_bound(potions.begin(), potions.end(), min_potion_strength);
+            }
+            pairs.push_back(std::distance(it, potions.end()));
         }
         return pairs;
     }
