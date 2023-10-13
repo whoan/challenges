@@ -1,6 +1,31 @@
 // https://leetcode.com/problems/longest-cycle-in-a-graph/
 // Hard
 
+// Better answer: https://leetcode.com/problems/longest-cycle-in-a-graph/solutions/2358092/simple-short-iterative-c-o-n/
+
+class Solution {
+public:
+    int longestCycle(vector<int>& edges) {
+        const int no_edge = -1;
+        const int not_seen = -1;
+        std::vector<int> lengths(edges.size(), 0);
+        std::vector<int> seen(edges.size(), not_seen);
+        int max = 0;
+        for (int i = 0; i < edges.size(); ++i) {
+            int length = 0;
+            for (int v = i; seen[v] == not_seen && edges[v] != no_edge; v = edges[v]) {
+                lengths[v] = ++length;
+                seen[v] = i;
+                // check if next vertex is in this same (ith) path
+                if (seen[edges[v]] == i) {
+                    max = std::max(max, length-lengths[edges[v]]+1);
+                }
+            }
+        }
+        return max ? max : -1;
+    }
+};
+
 class Solution {
 public:
     int longestCycle(vector<int>& edges) {
