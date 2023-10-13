@@ -2,6 +2,7 @@
 
 // https://en.wikipedia.org/wiki/Longest_common_subsequence_problem
 
+// not sure this is right. did not work in https://leetcode.com/problems/longest-palindromic-subsequence/
 class Solution {
 public:
     int longestCommonSubsequence(string text1, string text2) {

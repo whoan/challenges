@@ -22,7 +22,7 @@ public:
         }
         // flat
         while (edges[n] != n) {
-            n = edges[n];
+            n = edges[n]; // TODO: is it OK to replace n already here? it's used in the next line
             edges[n] = root;
         }
         return root;
