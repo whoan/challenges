@@ -10,3 +10,4 @@ trash/
 *.png
 *-workspace
 .DS_Store
+*.out
