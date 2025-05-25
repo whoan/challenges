@@ -24,9 +24,6 @@ public:
         };
         while (!pq.empty() && costs[n-1][m-1] == max) {
             auto [cost, x, y, wait] = pq.top(); pq.pop();
-            if (cost > costs[x][y]) {
-                continue;
-            }
             check(x-1, y, cost, wait);
             check(x, y+1, cost, wait);
             check(x+1, y, cost, wait);

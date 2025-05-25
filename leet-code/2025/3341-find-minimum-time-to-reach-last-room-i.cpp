@@ -25,10 +25,6 @@ public:
 
         while (!pq.empty() && costs[n-1][m-1] == max) {
             auto [currentCost, x, y] = pq.top(); pq.pop();
-            // check if tuple is obsoleted by a new update
-            if (costs[x][y] < currentCost) {
-                continue;
-            }
             checkAdjacent(x-1, y, currentCost);
             checkAdjacent(x, y+1, currentCost);
             checkAdjacent(x+1, y, currentCost);
