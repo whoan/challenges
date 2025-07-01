@@ -11,3 +11,4 @@ trash/
 *-workspace
 .DS_Store
 *.out
+graaflib
