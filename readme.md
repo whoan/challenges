@@ -9,3 +9,4 @@ Most of them are from [LeetCode](https://leetcode.com) and you can find a link t
 ## Good ones
 
 - https://leetcode.com/problems/remove-k-digits/ : Good solution: https://leetcode.com/problems/remove-k-digits/solutions/88668/short-python-one-o-n-and-one-regex
+- Medium/Hard: https://leetcode.com/problems/zero-array-transformation-iii/
