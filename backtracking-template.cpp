@@ -15,7 +15,7 @@ public:
     doSomething(); // do something with every partial result
     for (std::size_t choice=start; choice < collection.size(); ++choice) {
       choose(collection, choice);
-      explore(collection, choice + 1);
+      explore(collection, choice + 1); // sometimes we need to pass start+1
       unchoose();
     }
   }
