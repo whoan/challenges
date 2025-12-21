@@ -59,3 +59,41 @@ public:
         return {unique.begin(), unique.end()};
     }
 };
+
+// second round of the year. still bad but better and cleaner than before:
+class Solution {
+    vector<vector<int>> result;
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        std::unordered_map<int, int> map;
+        for (int i = 0; i < nums.size(); ++i) {
+            ++map[nums[i]];
+        }
+        while (map.size()) {
+            auto begin = map.begin();
+            --begin->second;
+            twoSum(map, begin->first);
+            map.erase(map.begin());
+        }
+        return result;
+    }
+
+    template<typename Collection>
+    void twoSum(Collection& map, int initial) {
+        auto begin = map.begin();
+        auto end = map.end();
+        for (; begin != end; ++begin) {
+            if (begin->second == 0) {
+                continue;
+            }
+            if (begin->first > -(initial + begin->first)) {
+                continue;
+            }
+            --begin->second;
+            if (map.count(-(initial + begin->first)) > 0 && map[-(initial + begin->first)] > 0) {
+                result.push_back({initial, begin->first, -(initial + begin->first)});
+            }
+            ++begin->second;
+        }
+    }
+};
