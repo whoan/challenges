@@ -9,3 +9,4 @@ Most of them are from [LeetCode](https://leetcode.com) and you can find a link t
 ## Good ones
 
 - Medium/Hard: https://leetcode.com/problems/zero-array-transformation-iii/
+- Nice solution to nice problem (not mine): https://leetcode.com/problems/partition-to-k-equal-sum-subsets/
